@@ -360,9 +360,11 @@
    month : "September", year : 2026
    pdf   : link to the PDF. Leave "" until the report is ready —
            the card then shows "Coming Soon" instead of Download.
+   Use month : "" to show the card without any month label.
    New year? Just add a report with that year; its tab appears on its own.
    ===================================================================== */
 const FMR_REPORTS = [
+  { month: "", year: 2026, pdf: "" }
   // { month: "October", year: 2026, pdf: "https://.../fmr-oct-2026.pdf" },
 ];
 
@@ -383,7 +385,7 @@ const FMR_REPORTS = [
       .map(r => `
         <div class="fmr-item">
           <span class="fmr-badge">${r.year}</span>
-          <h2>Fund Manager Report<br/>${esc(r.month)} ${r.year}</h2>
+          <h2>Fund Manager Report${r.month ? `<br/>${esc(r.month)} ${r.year}` : ""}</h2>
           <hr/>
           ${r.pdf
             ? `<a class="fmr-dl" href="${esc(r.pdf)}" target="_blank" rel="noopener noreferrer" aria-label="Download Fund Manager Report ${esc(r.month)} ${r.year} (PDF)">Download</a>`
