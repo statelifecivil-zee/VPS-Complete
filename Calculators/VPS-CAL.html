@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Life VPS Calculators Suite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Optimized Non-Blocking Google Fonts Connection -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    </noscript>
+    
+    <style>
+        /* Scoped styles for the calculators to preserve original look and feel */
+        .vps-scope { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; }
+        .vps-scope .vps-container { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .vps-scope .header-section { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 30px; border-bottom: 2px solid #2196F3; padding-bottom: 15px; }
+        .vps-scope h1 { color: #2c3e50; margin: 0; font-size: 1.8em; font-weight: bold; }
+        .vps-scope .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        .vps-scope .input-group { margin-bottom: 15px; }
+        .vps-scope label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; text-align: left; }
+        .vps-scope input[type="number"], .vps-scope input[type="text"], .vps-scope select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; box-sizing: border-box; background: white; }
+        .vps-scope input:focus, .vps-scope select:focus { outline: none; border-color: #2196F3; box-shadow: 0 0 5px rgba(33, 150, 243, 0.2); }
+        .vps-scope .radio-group { display: flex; gap: 15px; font-size: 14px; margin-top: 8px; }
+        .vps-scope .radio-group label { font-weight: normal; display: inline-flex; align-items: center; cursor: pointer; color: #444; }
+        .vps-scope .radio-group input[type="radio"] { width: auto; margin-right: 5px; cursor: pointer; }
+        .vps-scope .results-box { background: #e3f2fd; padding: 20px; border-radius: 8px; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; border-left: 5px solid #2196F3; }
+        .vps-scope .results-box p { margin: 5px 0; color: #555; font-weight: bold; }
+        .vps-scope .results-box h2 { margin: 10px 0; color: #2196F3; font-size: 2.2em; font-weight: bold; }
+        
+        .vps-scope .chart-container { margin-top: 30px; height: 400px; position: relative; }
+        .vps-scope .table-container { overflow-x: auto; margin-top: 30px; }
+        .vps-scope table { width: 100%; border-collapse: collapse; min-width: 800px; border: 1px solid #eee; }
+        .vps-scope th { background: #2196F3; color: white; padding: 12px; text-align: right; border: 1px solid #ddd; font-weight: bold; }
+        .vps-scope th:first-child, .vps-scope th:nth-child(2) { text-align: center; }
+        .vps-scope td { padding: 10px; border: 1px solid #eee; text-align: right; font-family: monospace; font-size: 14px; color: #333; }
+        .vps-scope td:first-child, .vps-scope td:nth-child(2) { text-align: center; font-family: inherit; font-weight: bold; }
+        .vps-scope tr:nth-child(even) { background-color: #fcfcfc; }
+        .vps-scope tbody tr:hover { background-color: #e3f2fd !important; cursor: pointer; }
+        .vps-scope .disclaimer { font-size: 12px; color: #7f8c8d; text-align: center; margin-top: 20px; padding: 15px; background: #fafafa; border-radius: 5px; border: 1px solid #eee; }
+
+        .tax-scope { font-family: 'Inter', sans-serif; color: #334155; }
+        .tax-scope .input-wrapper:focus-within:not(.error) { border-color: #10b981; box-shadow: 0 0 0 2px #d1fae5; }
+        .tax-scope .input-wrapper.error { border-color: #ef4444 !important; background-color: #fef2f2 !important; box-shadow: 0 0 0 2px #fecaca !important; }
+        .tax-scope .input-wrapper.error input { background-color: transparent !important; }
+        .tax-scope .input-wrapper.error span { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #dc2626 !important; transition: all 0.2s ease; }
+
+        .ann-scope { font-family: 'Inter', sans-serif; color: #334155; }
+        .ann-scope .input-group label { display: block; font-size: 0.875rem; font-weight: 500; color: #475569; margin-bottom: 0.25rem; }
+        .ann-scope .input-group input, .ann-scope .input-group select { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; background-color: white; }
+        .ann-scope .input-group input:focus, .ann-scope .input-group select:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .ann-scope .readonly-input { background-color: #f1f5f9; cursor: not-allowed; }
+        .ann-scope .table-container::-webkit-scrollbar { height: 8px; width: 8px; }
+        .ann-scope .table-container::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        .ann-scope .table-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .ann-scope .table-container::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .agt-scope { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .agt-scope .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+        .agt-scope .scrollbar-thin::-webkit-scrollbar-track { background: #f1f5f9; }
+        .agt-scope .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+        @media (max-width: 768px) {
+            .vps-scope .grid-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 transition-colors duration-300">
+
+    <!-- Reusable Vector Asset Definition for State Life Vector Logo -->
+    <svg style="display: none;">
+        <g id="sld-logo-vector">
+            <path d="M83,36 C82.4,40 81.1,42.8 79.1,46.3 C78.5,47.3 77.9,48.4 77.2,49.4 C76.6,50.5 75.9,51.6 75.3,52.8 C74.6,53.9 73.9,55.1 73.2,56.2 C71.9,58.6 70.5,61 69.1,63.4 C67,66.8 65,70.3 62.9,73.8 C60.6,77.9 58.2,82 55.8,86.1 C55.3,86.9 54.8,87.8 54.3,88.6 C53.9,89.4 53.4,90.2 53,91 C52.4,91.9 51.9,92.8 51.4,93.7 C50,96 50,96 48,97 C46.6,97.0 45.2,97.1 43.8,97.1 C42.5,97.1 42.5,97.1 41.2,97.1 C40.2,97.1 39.3,97.1 38.3,97.0 C37.4,97.0 36.4,97.0 35.5,97.0 C32.4,97.0 29.4,96.9 26.3,96.9 C24.3,96.9 22.2,96.9 20.1,96.9 C15.1,96.9 10,96.9 5,97 C5.5,92.2 6.9,88.8 9.3,84.6 C9.6,84 10,83.5 10.3,82.9 C11,81.6 11.7,80.4 12.4,79.1 C13.5,77.3 14.6,75.4 15.6,73.6 C25.9,55.6 36.4,41.3 57,35 C65.6,33.2 74.6,32.9 83,36 Z" fill="#239FF2"/>
+            <path d="M51,99 C60,98.8 69,98.6 78.1,98.5 C82.3,98.5 86.5,98.4 90.7,98.3 C94.7,98.2 98.8,98.1 102.8,98.1 C104.4,98.1 105.9,98.0 107.5,98.0 C119.5,97.7 119.5,97.7 122.9,100.5 C124.3,102.6 125.1,104.6 126,107 C126.6,108.1 127.2,109.2 127.8,110.3 C130.9,116.2 130.9,116.2 132.3,118.9 C133.3,120.8 134.2,122.6 135.2,124.5 C135.8,125.7 136.4,126.9 137.1,128.0 C137.9,129.6 137.9,129.6 138.7,131.3 C140,134 140,134 140,137 C135.7,138.1 131.5,138.1 127.1,138.2 C125.8,138.2 125.8,138.2 124.5,138.2 C122.6,138.2 120.8,138.2 119,138.2 C116.2,138.2 113.4,138.2 110.6,138.3 C91.9,138.4 74.5,136.3 60.3,122.8 C57.4,119.3 55.3,115.7 53.3,111.7 C52.7,110.7 52.7,110.7 52.2,109.6 C50.3,105.5 49.8,103.3 51,99 Z" fill="#249EF0"/>
+            <path d="M106,2 C109.7,2.7 109.7,2.7 111.7,5.2 C112.3,6.2 112.9,7.3 113.5,8.3 C113.9,8.9 114.2,9.5 114.5,10.0 C115.3,11.3 116,12.6 116.7,13.8 C118.1,16.1 119.4,18.4 120.7,20.6 C130.8,37.5 139.6,54.4 134.8,74.6 C132.6,81.7 128.9,89.2 123,94 C120.9,94.0 120.9,94.0 119,93 C117.2,90.8 117.2,90.8 115.5,87.8 C115.1,87.2 114.8,86.6 114.4,86.1 C110.7,79.6 107.1,73.1 103.6,66.5 C101.1,61.8 98.5,57.1 95.7,52.5 C95.2,51.7 94.7,50.8 94.2,50.0 C93.2,48.3 92.2,46.7 91.3,45.1 C90.8,44.4 90.4,43.7 90,42.9 C89.4,42.0 89.4,42.0 88.8,41.0 C87.3,37.3 87.5,34.1 89,30.4 C89.4,29.6 89.9,28.7 90.4,27.9 C91.1,26.5 91.1,26.5 91.9,25.0 C92.5,24.1 93,23.1 93.6,22.1 C94.4,20.7 94.4,20.7 95.2,19.3 C98.5,13.3 102.1,7.6 106,2 Z" fill="#249EF1"/>
+            <path d="M88,59.5 C89.9,61 89.9,61 90.6,64.6 C90.8,66.2 90.8,66.2 90.9,68 C91.5,67.9 92.1,67.9 92.8,67.8 C94,67.8 94,67.8 95.3,67.8 C96.1,67.7 96.9,67.7 97.7,67.7 C98.4,67.8 99.2,67.9 99.9,68 C100.9,69.4 100.9,69.4 101.9,71 C99.6,73.3 97.2,75.6 94.9,78 C95.2,78.5 95.5,79.1 95.9,79.6 C97,82.3 97,84.1 95.9,87 C90.3,87.3 90.3,87.3 88,85.5 C87.6,85 87.2,84.5 86.8,84 C83.5,85 83.5,85 80.8,87 C79.1,87 77.4,87 75.8,87 C75.6,83 75.7,80.4 77.8,77 C74.3,75 74.3,75 70.8,73 C71.1,71.3 71.4,69.7 71.8,68 C76.2,67.5 76.2,67.5 80.8,67 C81.1,65.8 81.4,64.7 81.7,63.5 C82.1,62.3 82.4,61.2 82.8,60 C84.8,59 84.8,59 86.8,59.5 Z" fill="#269DE6"/>
+        </g>
+    </svg>
+
+    <div class="min-h-screen flex flex-col justify-between">
+        
+        <!-- TOP APP NAVIGATION BAR -->
+        <nav id="global-nav-bar" class="hidden bg-white border-b border-slate-200 sticky top-0 z-50 px-4 py-3 shadow-md">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <button onclick="routerSwitchView('home')" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 px-4 rounded-xl border border-slate-200 transition-all text-xs shadow-sm">
+                        <i data-lucide="arrow-left" class="w-4 h-4 text-slate-600"></i>
+                        <span>Dashboard</span>
+                    </button>
+                    <!-- Open Active View in New Tab from navigation -->
+                    <button onclick="openCurrentInNewTab()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 px-3 rounded-xl border border-slate-200 transition-all text-xs shadow-sm" title="Launch this calculator in a brand new tab">
+                        <i data-lucide="external-link" class="w-4 h-4 text-sky-600"></i>
+                        <span class="hidden md:inline">Open in New Tab</span>
+                    </button>
+                    <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+                    <div class="flex items-center gap-3">
+                        <svg viewBox="0 0 150 150" class="w-9 h-9 drop-shadow">
+                            <use href="#sld-logo-vector" />
+                        </svg>
+                        <span class="text-slate-800 font-black text-xs tracking-wider uppercase hidden lg:inline">State Life VPS Suite</span>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap items-center justify-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button onclick="routerSwitchView('benefit')" id="pill-btn-benefit" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Benefit</button>
+                    <button onclick="routerSwitchView('rebate')" id="pill-btn-rebate" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Tax Rebate</button>
+                    <button onclick="routerSwitchView('annuity')" id="pill-btn-annuity" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Annuity</button>
+                    <button onclick="routerSwitchView('commission')" id="pill-btn-commission" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Commission</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Workspace Router Panels -->
+        <main class="flex-grow w-full">
+            
+            <!-- VIEW: CENTRAL HOUSING HOMEPAGE DASHBOARD -->
+            <section id="homepage-panel-view" class="min-h-screen py-16 px-4 md:px-8 flex flex-col justify-center items-center bg-gradient-to-br from-slate-50 via-white to-sky-50/40">
+                <div class="max-w-5xl w-full space-y-12 text-center">
+                    <div class="space-y-4 flex flex-col items-center animate-fade-in">
+                        <div class="flex items-center justify-center p-3 bg-white rounded-full border border-slate-100 shadow-xl mb-2">
+                            <svg viewBox="0 0 150 150" class="w-24 h-24 drop-shadow">
+                                <use href="#sld-logo-vector" />
+                            </svg>
+                        </div>
+                        <div class="space-y-1">
+                            <h2 class="text-4xl font-extrabold tracking-wider text-slate-900 uppercase">State Life</h2>
+                            <p class="text-xs uppercase tracking-[0.25em] font-black text-sky-600">Insurance Corporation of Pakistan</p>
+                            <h1 class="text-lg md:text-2xl font-extrabold tracking-wide text-slate-700 uppercase pt-4 border-t border-slate-200">
+                                Voluntary Pension Scheme (VPS) Calculators
+                            </h1>
+                        </div>
+                    </div>
+
+                    <!-- Clean minimalist cards grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+                        
+                        <!-- CARD 1: Benefit Calculator -->
+                        <div onclick="routerSwitchView('benefit')" class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-sky-500 rounded-3xl p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transform hover:-translate-y-1.5 transition-all duration-300 shadow-md hover:shadow-xl min-h-[180px]">
+                            <!-- Floating Action: Open in New Tab -->
+                            <button onclick="event.stopPropagation(); openInNewTab('benefit')" class="absolute top-4 right-4 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-sm" title="Open this calculator in a new tab">
+                                <i data-lucide="external-link" class="w-4 h-4 text-sky-600"></i>
+                            </button>
+                            <div class="w-16 h-16 flex items-center justify-center bg-sky-50/80 rounded-2xl border border-sky-100 group-hover:scale-105 transition-all mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-12 h-12">
+                                    <defs>
+                                        <linearGradient id="shGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFE082" /><stop offset="100%" stop-color="#FF8F00" /></linearGradient>
+                                        <linearGradient id="shBlue" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#B3E5FC" /><stop offset="100%" stop-color="#0288D1" /></linearGradient>
+                                    </defs>
+                                    <path d="M50 8 C50 8, 85 14, 85 45 C85 70, 50 92, 50 92 C50 92, 15 70, 15 45 C15 14, 50 8, 50 8 Z" fill="url(#shGold)"/>
+                                    <rect x="30" y="52" width="8" height="20" rx="1" fill="url(#shBlue)" /><rect x="42" y="44" width="8" height="28" rx="1" fill="url(#shBlue)" /><rect x="54" y="34" width="8" height="38" rx="1" fill="url(#shBlue)" /><rect x="66" y="26" width="8" height="46" rx="1" fill="url(#shBlue)" />
+                                </svg>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="text-sm font-bold text-slate-800 group-hover:text-sky-600 transition-colors">VPS Benefit Calculator</h3>
+                            </div>
+                        </div>
+
+                        <!-- CARD 2: Tax Rebate Calculator -->
+                        <div onclick="routerSwitchView('rebate')" class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-emerald-500 rounded-3xl p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transform hover:-translate-y-1.5 transition-all duration-300 shadow-md hover:shadow-xl min-h-[180px]">
+                            <!-- Floating Action: Open in New Tab -->
+                            <button onclick="event.stopPropagation(); openInNewTab('rebate')" class="absolute top-4 right-4 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-sm" title="Open this calculator in a new tab">
+                                <i data-lucide="external-link" class="w-4 h-4 text-emerald-600"></i>
+                            </button>
+                            <div class="w-16 h-16 flex items-center justify-center bg-emerald-50/80 rounded-2xl border border-emerald-100 group-hover:scale-105 transition-all mt-2">
+                                <!-- Modern Stacked Gold Coins with Incoming Credit Arrow Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-12 h-12">
+                                    <defs>
+                                        <linearGradient id="goldCoinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#FFE082" />
+                                            <stop offset="50%" stop-color="#FFB300" />
+                                            <stop offset="100%" stop-color="#FF8F00" />
+                                        </linearGradient>
+                                        <linearGradient id="emeraldArrowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#34D399" />
+                                            <stop offset="100%" stop-color="#059669" />
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Coin 1 (Bottom Stack) -->
+                                    <path d="M 25,58 L 25,66 A 25,10 0 0,0 75,66 L 75,58 Z" fill="#D84315" />
+                                    <ellipse cx="50" cy="58" rx="25" ry="10" fill="url(#goldCoinGrad)" stroke="#FF6F00" stroke-width="1" />
+                                    <text x="50" y="61" font-family="'Segoe UI', 'Inter', sans-serif" font-weight="900" font-size="8" fill="#E65100" text-anchor="middle">Rs</text>
+
+                                    <!-- Coin 2 (Middle Offset Stack) -->
+                                    <path d="M 18,44 L 18,52 A 25,10 0 0,0 68,52 L 68,44 Z" fill="#D84315" />
+                                    <ellipse cx="43" cy="44" rx="25" ry="10" fill="url(#goldCoinGrad)" stroke="#FF6F00" stroke-width="1" />
+                                    <text x="43" y="47" font-family="'Segoe UI', 'Inter', sans-serif" font-weight="900" font-size="8" fill="#E65100" text-anchor="middle">Rs</text>
+
+                                    <!-- Dynamic Incoming Credit Arrow -->
+                                    <path d="M 80,18 C 65,12 45,20 45,35" fill="none" stroke="url(#emeraldArrowGrad)" stroke-width="7" stroke-linecap="round" />
+                                    <polygon points="37,30 45,43 53,30" fill="url(#emeraldArrowGrad)" />
+                                </svg>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="text-sm font-bold text-slate-800 group-hover:text-emerald-600 transition-colors">Tax Rebate Calculator</h3>
+                            </div>
+                        </div>
+
+                        <!-- CARD 3: Annuity Calculator -->
+                        <div onclick="routerSwitchView('annuity')" class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-amber-500 rounded-3xl p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transform hover:-translate-y-1.5 transition-all duration-300 shadow-md hover:shadow-xl min-h-[180px]">
+                            <!-- Floating Action: Open in New Tab -->
+                            <button onclick="event.stopPropagation(); openInNewTab('annuity')" class="absolute top-4 right-4 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-sm" title="Open this calculator in a new tab">
+                                <i data-lucide="external-link" class="w-4 h-4 text-amber-600"></i>
+                            </button>
+                            <div class="w-16 h-16 flex items-center justify-center bg-amber-50/80 rounded-2xl border border-amber-100 group-hover:scale-105 transition-all mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-12 h-12">
+                                    <defs>
+                                        <linearGradient id="pigPink2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8A80" /><stop offset="100%" stop-color="#D50000" /></linearGradient>
+                                    </defs>
+                                    <circle cx="36" cy="44" r="7" fill="url(#shGold)" stroke="#F57C00" /><circle cx="50" cy="41" r="7" fill="url(#shGold)" stroke="#F57C00" />
+                                    <rect x="22" y="46" width="56" height="34" rx="3" fill="url(#pigPink2)" />
+                                    <rect x="28" y="46" width="6" height="34" fill="url(#shGold)" /><rect x="66" y="46" width="6" height="34" fill="url(#shGold)" />
+                                    <rect x="46" y="54" width="8" height="10" rx="1" fill="#37474F" />
+                                </svg>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="text-sm font-bold text-slate-800 group-hover:text-amber-600 transition-colors">Annuity Calculator</h3>
+                            </div>
+                        </div>
+
+                        <!-- CARD 4: Agent Commission Calculator -->
+                        <div onclick="routerSwitchView('commission')" class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-indigo-500 rounded-3xl p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transform hover:-translate-y-1.5 transition-all duration-300 shadow-md hover:shadow-xl min-h-[180px]">
+                            <!-- Floating Action: Open in New Tab -->
+                            <button onclick="event.stopPropagation(); openInNewTab('commission')" class="absolute top-4 right-4 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-sm" title="Open this calculator in a new tab">
+                                <i data-lucide="external-link" class="w-4 h-4 text-indigo-600"></i>
+                            </button>
+                            <div class="w-16 h-16 flex items-center justify-center bg-indigo-50/80 rounded-2xl border border-indigo-100 group-hover:scale-105 transition-all mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-12 h-12">
+                                    <rect x="18" y="55" width="8" height="25" rx="1" fill="url(#shBlue)" /><rect x="32" y="40" width="8" height="40" rx="1" fill="url(#shBlue)" /><rect x="46" y="28" width="8" height="52" rx="1" fill="url(#shBlue)" />
+                                    <path d="M12 70 L22 60 L36 45 L50 32 L68 18" fill="none" stroke="#651FFF" stroke-width="3" />
+                                    <ellipse cx="68" cy="72" rx="10" ry="4" fill="url(#shGold)" />
+                                </svg>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="text-sm font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Agent Commission Calculator</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BLOCK 1: STATE LIFE VPS BENEFIT CALCULATOR MODULE -->
+            <section id="benefit-calc-scope-view" class="hidden py-8 px-4 md:px-8 bg-slate-50 min-h-screen">
+                <div class="vps-scope">
+                    <div class="vps-container">
+                        <div class="header-section">
+                            <svg viewBox="0 0 150 150" class="w-16 h-16">
+                                <use href="#sld-logo-vector" />
+                            </svg>
+                            <h1>State Life VPS Benefit Calculator (SECP Aligned)</h1>
+                        </div>
+                        
+                        <div class="grid-layout">
+                            <div class="inputs">
+                                <div class="input-group">
+                                    <label>Current Age</label>
+                                    <input type="number" id="vps-currentAge" value="35" oninput="ModuleVPSBenefit.runCalc()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Retirement Age</label>
+                                    <input type="number" id="vps-retirementAge" value="60" oninput="ModuleVPSBenefit.runCalc()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Initial Investment (PKR)</label>
+                                    <input type="text" id="vps-initialInv" value="100,000" inputmode="numeric" oninput="ModuleVPSBenefit.formatInputField(this); ModuleVPSBenefit.runCalc()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Contribution (PKR)</label>
+                                    <input type="text" id="vps-contribution" value="25,000" inputmode="numeric" oninput="ModuleVPSBenefit.formatInputField(this); ModuleVPSBenefit.runCalc()">
+                                    <div class="radio-group">
+                                        <label>
+                                            <input type="radio" name="vps-contFreq" value="monthly" checked onchange="ModuleVPSBenefit.runCalc()"> 
+                                            Monthly Contribution
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="vps-contFreq" value="annual" onchange="ModuleVPSBenefit.runCalc()"> 
+                                            One-Time Annual Contribution
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Volatility Scheme (Risk Profile)</label>
+                                    <select id="vps-volatilityScheme" onchange="ModuleVPSBenefit.syncSchemeReturnRate()">
+                                        <option value="high">High (Equity CAGR: 15.00%)</option>
+                                        <option value="medium" selected>Medium (Balanced: 13.50%)</option>
+                                        <option value="low">Low (Debt CAGR: 12.00%)</option>
+                                        <option value="lower">Lower (Money Market CAGR: 10.50%)</option>
+                                        <option value="lifecycle14">Life Cycle Scheme 14%</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Expected Annual Return (%)</label>
+                                    <input type="number" id="vps-annualReturn" value="13.5" step="0.01" oninput="ModuleVPSBenefit.runCalc()">
+                                </div>
+                            </div>
+                            
+                            <div class="summary">
+                                <div class="results-box">
+                                    <p>Total Estimated Value at Retirement</p>
+                                    <h2 id="vps-finalBalanceDisplay">PKR 0</h2>
+                                    <p>Investment Period: <span id="vps-yearsDisplay" style="color: #2196F3;">25</span> Years</p>
+                                    <p>Total Contribution: <span id="vps-totalContDisplay" style="color: #2196F3;">PKR 0</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="vps-growthChart"></canvas>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="vps-projectionTable">
+                                <thead>
+                                    <tr>
+                                        <th>Year</th>
+                                        <th>Age</th>
+                                        <th>Opening Balance</th>
+                                        <th>Contribution Total</th>
+                                        <th>Annual Growth</th>
+                                        <th>Closing Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="disclaimer">
+                            *Expected returns are based on specified benchmarks: Equity (15%), Medium (13.5%), Debt (12%), Money Market (10.5%), and Life Cycle (14%). 
+                            Results are for illustrative purposes. Annual contributions are assumed to be deposited at the end of the compounding period. Actual performance may vary.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BLOCK 2: STATE LIFE TAX REBATE CALCULATOR MODULE -->
+            <section id="tax-rebate-scope-view" class="hidden py-8 px-4 md:px-8 bg-slate-50 min-h-screen">
+                <div class="tax-scope max-w-6xl mx-auto">
+                    <div class="flex items-center gap-4 sm:gap-6 mb-8 pb-6 border-b border-slate-200">
+                        <svg viewBox="0 0 150 150" class="w-16 h-16 sm:w-20 sm:h-20 drop-shadow">
+                            <use href="#sld-logo-vector" />
+                        </svg>
+                        <div>
+                            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">VPS Tax Rebate Calculator</h1>
+                            <p class="text-slate-500 text-sm sm:text-base mt-1 font-semibold">Maximize your tax savings through Voluntary Pension System (FY27)</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-5 space-y-6">
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                                <div class="flex items-center gap-2 mb-6 text-slate-800 font-bold">
+                                    <i data-lucide="shield-check" class="text-emerald-500"></i> Financial Details
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Taxpayer Category</label>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <label class="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition-colors select-none">
+                                            <input type="checkbox" id="tax-chkSalaried" class="w-4 h-4 text-emerald-600 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer" checked onchange="ModuleTaxRebate.switchTaxCategory('salaried')">
+                                            <span class="text-sm font-bold text-slate-700">Salaried</span>
+                                        </label>
+                                        <label class="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition-colors select-none">
+                                            <input type="checkbox" id="tax-chkNonSalaried" class="w-4 h-4 text-emerald-600 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer" onchange="ModuleTaxRebate.switchTaxCategory('nonsalaried')">
+                                            <span class="text-sm font-bold text-slate-700">Non-Salaried</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Monthly Income (Rs.)</label>
+                                    <div class="input-wrapper flex items-center border border-slate-300 rounded-lg overflow-hidden transition-all bg-white">
+                                        <span class="px-4 py-3 bg-slate-50 text-slate-500 font-bold border-r border-slate-300">Rs</span>
+                                        <input type="text" id="tax-monthlyIncome" value="4,000,000" data-prev-value="4,000,000" class="w-full px-4 py-3 outline-none text-slate-800 font-bold bg-transparent" placeholder="0" oninput="ModuleTaxRebate.formatInputAndTrigger(this)">
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <div class="flex justify-between items-end mb-2">
+                                        <label class="block text-sm font-semibold text-slate-700">Annual Income (Rs.)</label>
+                                        <span class="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Auto-calculated</span>
+                                    </div>
+                                    <div class="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-slate-50 cursor-not-allowed">
+                                        <span class="px-4 py-3 bg-slate-100 text-slate-400 font-bold border-r border-slate-200">Rs</span>
+                                        <input type="text" id="tax-annualIncome" class="w-full px-4 py-3 outline-none text-slate-600 font-bold bg-transparent cursor-not-allowed" placeholder="0" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">VPS Investment Amount (Rs.)</label>
+                                    <div id="tax-vpsWrapper" class="input-wrapper flex items-center border border-slate-300 rounded-lg overflow-hidden transition-all bg-white">
+                                        <span class="px-4 py-3 bg-slate-50 text-slate-500 font-bold border-r border-slate-300 transition-colors">Rs</span>
+                                        <input type="text" id="tax-vpsInvestment" value="9,600,000" data-prev-value="9,600,000" class="w-full px-4 py-3 outline-none text-slate-800 font-bold bg-transparent" placeholder="0" oninput="ModuleTaxRebate.formatInputAndTrigger(this)">
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center text-xs px-1">
+                                    <span class="text-emerald-600 font-bold">Max Eligible: <span id="tax-maxEligibleText">Rs. 0</span></span>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 text-sm text-blue-800">
+                                <i data-lucide="info" class="shrink-0 text-blue-500 mt-0.5"></i>
+                                <p><strong>Note:</strong> According to current tax regulations, the maximum eligible contribution for tax rebate is capped at 20% of your annual taxable income.</p>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="bg-gradient-to-br from-emerald-500 to-teal-700 rounded-2xl p-8 text-center relative overflow-hidden shadow-xl">
+                                <div class="relative z-10 flex flex-col items-center justify-center">
+                                    <div class="inline-flex items-center justify-center bg-white/20 px-3 py-1 rounded-full mb-4 border border-white/20 backdrop-blur-sm">
+                                        <i data-lucide="check" class="text-emerald-50 mr-2"></i>
+                                        <span class="text-emerald-50 text-xs font-bold uppercase tracking-wider">Estimated Tax Savings</span>
+                                    </div>
+                                    <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-3 tracking-tight drop-shadow-sm" id="tax-taxSavings">Rs. 0</h2>
+                                    <p class="text-emerald-100 text-sm font-semibold">This amount will be reduced from your annual tax liability.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                                <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-6">Calculation Breakdown</h3>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                                        <div class="flex items-center gap-2 text-slate-600 font-medium">
+                                            <i data-lucide="calculator" class="w-4 h-4"></i>
+                                            <span id="tax-originalTaxLabel">Original Tax Liability</span>
+                                        </div>
+                                        <span class="font-bold text-slate-800" id="tax-originalTax">Rs. 0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                                        <div class="flex items-center gap-2 text-slate-600 font-medium">
+                                            <i data-lucide="percent" class="w-4 h-4"></i> Average Rate of Tax
+                                        </div>
+                                        <span class="font-bold text-slate-800" id="tax-avgTaxRate">0.00%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                                        <div class="flex items-center gap-2 text-slate-600 font-medium">
+                                            <i data-lucide="wallet" class="w-4 h-4 text-emerald-500"></i> Eligible Contribution
+                                        </div>
+                                        <span class="font-bold text-slate-800" id="tax-eligibleContribution">Rs. 0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center pb-4">
+                                        <div class="flex items-center gap-2 text-slate-600 font-medium">
+                                            <i data-lucide="scale" class="w-4 h-4"></i> Revised Tax Liability
+                                        </div>
+                                        <span class="font-bold text-slate-800" id="tax-revisedTax">Rs. 0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BLOCK 3: STATE LIFE ANNUITY CALCULATOR MODULE -->
+            <section id="annuity-scope-view" class="hidden py-8 px-4 md:px-8 bg-slate-50 min-h-screen">
+                <div class="ann-scope max-w-7xl mx-auto space-y-6">
+                    <header class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-8 pb-5 border-b-2 border-[#2196F3] text-center sm:text-left">
+                        <svg viewBox="0 0 150 150" class="h-16 sm:h-20 w-auto">
+                            <use href="#sld-logo-vector" />
+                        </svg>
+                        <div>
+                            <h1 id="ann-headerTitle" class="text-3xl font-extrabold text-slate-900">Voluntary Pension Scheme</h1>
+                            <p id="ann-headerSubtitle" class="text-slate-500 mt-1">Unified Annuity Calculator Dashboard</p>
+                        </div>
+                    </header>
+
+                    <!-- Prominent Top Plan Selector -->
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100 shadow-sm flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <label class="text-blue-900 font-bold text-lg whitespace-nowrap">Select Annuity Plan:</label>
+                        <select id="ann-planSelector" onchange="ModuleAnnuity.executePlanSwitch()" class="font-medium text-slate-800 border-blue-200 w-full sm:w-auto flex-1 max-w-md p-3 rounded-xl shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all bg-white">
+                            <option value="forever">Forever Pension Plan</option>
+                            <option value="doubleSecure">Double Secure Pension Plan</option>
+                            <option value="freedom">Freedom Pension Plan</option>
+                            <option value="retireWell">Retire Well Annuity Plan</option>
+                            <option value="care5">Care Annuity Plan</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        
+                        <div class="lg:col-span-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-fit space-y-5">
+                            <h2 class="text-lg font-semibold border-b pb-3 mb-4">Plan Parameters</h2>
+
+                            <div class="grid grid-cols-2 gap-4 pt-2">
+                                <div class="input-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" id="ann-dob" value="1965-10-31" oninput="ModuleAnnuity.runActuarialMath()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Risk Date</label>
+                                    <input type="date" id="ann-riskDate" value="2025-12-31" oninput="ModuleAnnuity.runActuarialMath()">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Total Contribution (Rs)</label>
+                                <input type="text" id="ann-contribution" value="1,000,000">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="input-group">
+                                    <label>Commission (%)</label>
+                                    <input type="number" id="ann-commRate" value="3.25" step="0.01" oninput="ModuleAnnuity.runActuarialMath()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Admin Expense (%)</label>
+                                    <input type="number" id="ann-adminRate" value="0.25" step="0.01" oninput="ModuleAnnuity.runActuarialMath()">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Maintenance Base (%)</label>
+                                <input type="number" id="ann-maintFee" value="50" step="1" oninput="ModuleAnnuity.runActuarialMath()">
+                            </div>
+
+                            <div class="border-t pt-4 mt-2">
+                                <button type="button" id="ann-toggleAdvancedBtn" class="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center transition-colors">
+                                    <span>Show Actuarial Parameters</span>
+                                    <svg id="ann-toggleIcon" class="w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                
+                                <div id="ann-advancedParams" class="hidden mt-4 grid grid-cols-2 gap-4 opacity-60">
+                                    <div class="input-group col-span-2 sm:col-span-1">
+                                        <label>Annuity Factor (AF)</label>
+                                        <input type="number" id="ann-annuityFactor" class="readonly-input" value="6.79921913" readonly title="Determined by actuarial tables for the selected plan">
+                                    </div>
+                                    <div class="input-group col-span-2 sm:col-span-1">
+                                        <label>Profit Rate (%)</label>
+                                        <input type="number" id="ann-profitRate" class="readonly-input" value="10.96" readonly title="Baked into the Annuity Factor">
+                                    </div>
+                                    <div class="input-group col-span-2 sm:col-span-1">
+                                        <label>Guaranteed Period</label>
+                                        <input type="number" id="ann-guaranteedPeriod" class="readonly-input" value="0" readonly>
+                                    </div>
+                                    <div class="input-group col-span-2 sm:col-span-1">
+                                        <label>Deferment Period</label>
+                                        <input type="number" id="ann-defermentPeriod" class="readonly-input" value="0" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-8 space-y-6">
+                            <div class="grid grid-cols-1 gap-4 h-full">
+                                <div class="bg-blue-600 text-white p-8 md:p-12 rounded-2xl shadow-sm flex flex-col items-center justify-center min-h-[250px] lg:h-full relative overflow-hidden">
+                                    <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-blue-500 opacity-50 blur-3xl pointer-events-none"></div>
+                                    
+                                    <p id="ann-payoutLabel" class="text-blue-100 text-lg md:text-xl font-medium mb-3 relative z-10">Monthly Annuity Payout</p>
+                                    <h3 class="text-5xl md:text-7xl font-bold tracking-tight relative z-10 animate-fade-in" id="ann-outMonthlyAnnuity">Rs 0.00</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mt-6">
+                        <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-slate-800">Cash Flows & Amortization Table</h3>
+                            <span class="text-xs font-medium bg-slate-200 text-slate-600 px-2 py-1 rounded">Monthly Projection</span>
+                        </div>
+                        <div class="table-container max-h-[500px] overflow-y-auto w-full">
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-slate-500 uppercase bg-slate-50 sticky top-0 shadow-sm z-10">
+                                    <tr>
+                                        <th class="px-4 py-3 font-semibold">Month</th>
+                                        <th class="px-4 py-3 font-semibold">Date</th>
+                                        <th class="px-4 py-3 font-semibold text-right">Commission</th>
+                                        <th class="px-4 py-3 font-semibold text-right">Admin</th>
+                                        <th class="px-4 py-3 font-semibold text-right">Maintenance</th>
+                                        <th class="px-4 py-3 font-semibold text-right">Annuity Pmt</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100" id="ann-tableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BLOCK 4: STATE LIFE AGENT COMMISSION CALCULATOR MODULE -->
+            <section id="agent-commission-scope-view" class="hidden py-8 px-4 md:px-8 bg-slate-50 min-h-screen">
+                <div class="agt-scope max-w-7xl mx-auto space-y-8">
+                    
+                    <header class="mb-8 flex flex-row items-center justify-center border-b border-slate-200 pb-6 w-full gap-4 md:gap-6">
+                        <div class="flex-shrink-0">
+                            <svg viewBox="0 0 150 150" class="w-16 h-16 md:w-20 md:h-20">
+                                <use href="#sld-logo-vector" />
+                            </svg>
+                        </div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight text-left">Sales Agent Commission Calculator</h1>
+                    </header>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- Left Layout (5/12) -->
+                        <div class="lg:col-span-5 space-y-6">
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                                <h2 class="text-xl font-bold mb-5 flex items-center text-slate-900">
+                                    <i data-lucide="briefcase" class="w-5 h-5 mr-2 text-indigo-600"></i> Assets & Contributions Setup
+                                </h2>
+
+                                <div class="space-y-5">
+                                    <!-- Equity segment -->
+                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3 hover:border-purple-200 transition-colors">
+                                        <div class="flex items-center justify-between">
+                                            <span class="flex items-center font-bold text-slate-800 text-sm">
+                                                <i data-lucide="activity" class="w-4 h-4 mr-1.5 text-purple-600"></i> Equity Sub Fund
+                                            </span>
+                                            <span class="text-[10px] font-bold bg-purple-100 text-purple-700 px-2.5 py-0.5 rounded-full">2.50% Fee</span>
+                                        </div>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Initial AUM</label>
+                                                <div class="relative">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
+                                                    <input type="text" id="agt-equity-aum" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Annual Contribution</label>
+                                                <div class="relative">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
+                                                    <input type="text" id="agt-equity-contrib" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Debt segment -->
+                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3 hover:border-amber-200 transition-colors">
+                                        <div class="flex items-center justify-between">
+                                            <span class="flex items-center font-bold text-slate-800 text-sm">
+                                                <i data-lucide="trending-up" class="w-4 h-4 mr-1.5 text-amber-600"></i> Debt Sub Fund
+                                            </span>
+                                            <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full">1.25% Fee</span>
+                                        </div>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Initial AUM</label>
+                                                <div class="relative">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
+                                                    <input type="text" id="agt-debt-aum" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Annual Contribution</label>
+                                                <div class="relative">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
+                                                    <input type="text" id="agt-debt-contrib" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- MM segment -->
+                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3 hover:border-emerald-200 transition-colors">
+                                        <div class="flex items-center justify-between">
+                                            <span class="flex items-center font-bold text-slate-800 text-sm">
+                                                <i data-lucide="landmark" class="w-4 h-4 mr-1.5 text-emerald-600"></i> Money Market Fund
+                                            </span>
+                                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full">1.00% Fee</span>
+                                        </div>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Initial AUM</label>
+                                                <div class="relative">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
+                                                    <input type="text" id="agt-mm-aum" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Annual Contribution</label>
+                                                <div class="relative">
+                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
+                                                    <input type="text" id="agt-mm-contrib" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 pt-5 border-t border-slate-100 space-y-2.5">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-500 font-medium">Initial Total AUM</span>
+                                        <span id="agt-lbl-initial-aum" class="font-bold text-slate-900 text-base">Rs. 0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-500 font-medium">Total Annual Contribution</span>
+                                        <span id="agt-lbl-total-contrib" class="font-bold text-indigo-600 text-base">Rs. 0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                                <h2 class="text-xl font-bold mb-5 flex items-center text-slate-900">
+                                    <i data-lucide="line-chart" class="w-5 h-5 mr-2 text-indigo-600"></i> Growth Projections
+                                </h2>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1.5">Number of Years</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i data-lucide="calendar" class="h-4 w-4 text-slate-400"></i></div>
+                                            <input type="number" id="agt-projection-years" min="1" max="40" value="10" oninput="ModuleAgentCommission.calculateAndRender()" class="block w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm font-semibold outline-none">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1.5">Expected Annual Return</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-sm">%</span></div>
+                                            <input type="number" id="agt-projection-rate" value="10" oninput="ModuleAgentCommission.calculateAndRender()" class="block w-full pl-3.5 pr-8 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm font-semibold outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Layout (7/12) -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl shadow-xl p-1 overflow-hidden relative">
+                                <div class="absolute top-0 right-0 -mt-6 -mr-6 w-32 h-32 bg-indigo-500 rounded-full opacity-25 blur-2xl"></div>
+                                <div class="absolute bottom-0 left-0 -mb-6 -ml-6 w-32 h-32 bg-emerald-500 rounded-full opacity-25 blur-2xl"></div>
+                                
+                                <div class="bg-slate-900/40 backdrop-blur-md rounded-[22px] p-6 md:p-8 relative z-10 text-white border border-slate-700/40">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Total Sales Agent Commission</h3>
+                                        <span id="agt-badge-years-summary" class="bg-indigo-500/20 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30">Cumulative</span>
+                                    </div>
+                                    <div class="flex items-baseline space-x-2">
+                                        <span id="agt-val-cumulative-commission" class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Rs. 0</span>
+                                    </div>
+                                    <div class="mt-6 pt-6 border-t border-slate-700/60 grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p class="text-xs text-slate-400 font-medium">Avg. Annual Commission</p>
+                                            <p id="agt-val-avg-annual-commission" class="text-lg md:text-xl font-bold text-slate-100">Rs. 0</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-xs text-slate-400 font-medium">Total Mgmt Fee (Cum.)</p>
+                                            <p id="agt-val-total-mgmt-fee" class="text-lg md:text-xl font-bold text-slate-100">Rs. 0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 overflow-hidden">
+                                <h3 class="text-lg font-bold mb-5 flex items-center text-slate-900">
+                                    <i data-lucide="pie-chart" class="w-5 h-5 mr-2 text-slate-500"></i> Management Fee Breakdown (Cumulative)
+                                </h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100/50 transition-colors">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-2.5 h-10 rounded bg-purple-500"></div>
+                                            <div><p class="font-bold text-slate-800 text-sm">Equity Sub Fund</p><p class="text-[11px] text-slate-500">2.5% of AUM</p></div>
+                                        </div>
+                                        <div class="text-right"><p id="agt-fee-equity-cumulative" class="font-extrabold text-slate-900 text-sm md:text-base">Rs. 0</p><p id="agt-fee-equity-annual-avg" class="text-[10px] font-medium text-slate-500">Rs. 0 / yr avg</p></div>
+                                    </div>
+                                    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100/50 transition-colors">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-2.5 h-10 rounded bg-amber-500"></div>
+                                            <div><p class="font-bold text-slate-800 text-sm">Debt Sub Fund</p><p class="text-[11px] text-slate-500">1.25% of AUM</p></div>
+                                        </div>
+                                        <div class="text-right"><p id="agt-fee-debt-cumulative" class="font-extrabold text-slate-900 text-sm md:text-base">Rs. 0</p><p id="agt-fee-debt-annual-avg" class="text-[10px] font-medium text-slate-500">Rs. 0 / yr avg</p></div>
+                                    </div>
+                                    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100/50 transition-colors">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-2.5 h-10 rounded bg-emerald-500"></div>
+                                            <div><p class="font-bold text-slate-800 text-sm">Money Market Fund</p><p class="text-[11px] text-slate-500">1.00% of AUM</p></div>
+                                        </div>
+                                        <div class="text-right"><p id="agt-fee-mm-cumulative" class="font-extrabold text-slate-900 text-sm md:text-base">Rs. 0</p><p id="agt-fee-mm-annual-avg" class="text-[10px] font-medium text-slate-500">Rs. 0 / yr avg</p></div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5 pt-5 border-t border-slate-100 space-y-3 px-1">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-600 font-bold flex items-center"><i data-lucide="layers" class="w-4.5 h-4.5 mr-2 text-slate-400"></i>Total Management Fee</span>
+                                        <span id="agt-fee-total-mgmt" class="font-extrabold text-slate-900 text-[15px]">Rs. 0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-600 font-bold flex items-center"><i data-lucide="award" class="w-4.5 h-4.5 mr-2 text-indigo-500"></i>Sales Agent Commission (10%)</span>
+                                        <span id="agt-fee-total-commission" class="font-extrabold text-indigo-600 text-[15px]">Rs. 0</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row justify-between sm:items-center bg-slate-50 -mx-6 -mb-6 p-6 gap-3">
+                                    <span class="text-slate-600 font-bold flex items-center text-sm"><i data-lucide="percent" class="w-4.5 h-4.5 mr-2 text-indigo-500"></i>Weighted Average Management Fee</span>
+                                    <span id="agt-val-weighted-average" class="font-extrabold text-slate-900 text-base md:text-lg bg-indigo-50 text-indigo-700 px-3.5 py-1.5 rounded-xl border border-indigo-100 shadow-sm">0.000%</span>
+                                </div>
+                            </div>
+
+                            <div class="flex bg-slate-200/60 p-1.5 rounded-2xl border border-slate-200/40 w-full max-w-sm sm:max-w-md">
+                                <button id="agt-toggle-table-btn" class="flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all bg-white text-slate-900 shadow-md"><i data-lucide="table-properties" class="w-4.5 h-4.5"></i><span>Commission Table</span></button>
+                                <button id="agt-toggle-chart-btn" class="flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all text-slate-500 hover:text-slate-800"><i data-lucide="area-chart" class="w-4.5 h-4.5"></i><span>Growth Curve</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Projections Visualization Blocks -->
+                    <div class="pt-4">
+                        <div id="agt-table-container-view" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 w-full">
+                            <div class="p-6 border-b border-slate-100"><h3 class="text-lg font-bold flex items-center text-slate-900"><i data-lucide="calendar-clock" class="w-5 h-5 mr-2 text-slate-500"></i>Compounded Projections Table</h3></div>
+                            <div class="overflow-x-auto w-full">
+                                <table class="w-full text-left border-collapse min-w-[950px]">
+                                    <thead>
+                                        <tr class="bg-slate-50 text-slate-500 text-[10px] md:text-xs uppercase tracking-wider border-b border-slate-200">
+                                            <th class="p-4 font-bold">Year End</th>
+                                            <th class="p-4 font-bold text-right">Opening Balance</th>
+                                            <th class="p-4 font-bold text-right">Annual Growth</th>
+                                            <th class="p-4 font-bold text-right">Annual Contribution</th>
+                                            <th class="p-4 font-bold text-right">Closing Balance</th>
+                                            <th class="p-4 font-bold text-right">Annual Commission (10% of Fee)</th>
+                                            <th class="p-4 font-bold text-right">Cumulative Commission</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="agt-projection-table-body" class="divide-y divide-slate-100 text-xs md:text-sm"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="agt-chart-container-view" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6 transition-all duration-300 w-full">
+                            <div id="agt-chart-container-active" class="space-y-6">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                                    <h3 class="text-lg font-bold flex items-center text-indigo-600"><i data-lucide="line-chart" class="w-5 h-5 mr-2"></i>Commission Growth Curve</h3>
+                                </div>
+                                <div class="w-full h-96 relative bg-slate-50 rounded-xl p-4 border border-slate-100 overflow-hidden">
+                                    <svg id="agt-svg-chart" class="w-full h-full overflow-visible" preserveAspectRatio="none"></svg>
+                                </div>
+                            </div>
+                            <div id="agt-chart-container-inactive" class="hidden flex flex-col items-center justify-center py-16 text-center text-slate-400">
+                                <i data-lucide="area-chart" class="w-12 h-12 mb-3 text-slate-300 animate-pulse"></i>
+                                <p class="text-sm font-semibold text-slate-500">Growth curve requires a projection of 2 or more years.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-white py-6 px-4 border-t border-slate-200 text-center text-xs text-slate-500 font-bold tracking-wide">
+            <div>&copy; 2026 State Life Insurance Corporation of Pakistan. All Rights Reserved.</div>
+        </footer>
+    </div>
+
+    <!-- CODE ROUTING DRIVER & CORE CALCULATION ENGINES -->
+    <script>
+        // Track the current view state globally to allow header shortcuts to work
+        let currentActiveView = 'home';
+
+        // Direct Launch in a Brand New Tab via Query String Parameter Routing
+        function openInNewTab(viewId) {
+            const url = window.location.href.split('?')[0] + '?view=' + viewId;
+            window.open(url, '_blank');
+        }
+
+        // Open Currently Active View in a new tab from the nav shortcut
+        function openCurrentInNewTab() {
+            if (currentActiveView && currentActiveView !== 'home') {
+                openInNewTab(currentActiveView);
+            }
+        }
+
+        // Main Router Function to swap active panels
+        function routerSwitchView(viewId) {
+            currentActiveView = viewId;
+
+            document.getElementById('homepage-panel-view').classList.add('hidden');
+            document.getElementById('benefit-calc-scope-view').classList.add('hidden');
+            document.getElementById('tax-rebate-scope-view').classList.add('hidden');
+            document.getElementById('annuity-scope-view').classList.add('hidden');
+            document.getElementById('agent-commission-scope-view').classList.add('hidden');
+
+            const navBar = document.getElementById('global-nav-bar');
+            const body = document.body;
+
+            if (viewId === 'home') {
+                navBar.classList.add('hidden');
+                body.className = "bg-gradient-to-br from-slate-50 via-white to-sky-50/40 text-slate-800";
+                document.getElementById('homepage-panel-view').classList.remove('hidden');
+            } else {
+                navBar.classList.remove('hidden');
+                body.className = "bg-slate-50 text-slate-800";
+
+                const items = ['benefit', 'rebate', 'annuity', 'commission'];
+                items.forEach(i => {
+                    const btn = document.getElementById(`pill-btn-${i}`);
+                    if (i === viewId) {
+                        btn.className = "text-[11px] bg-white text-slate-900 border border-slate-200/60 font-bold py-1.5 px-3 rounded-lg shadow-sm";
+                    } else {
+                        btn.className = "text-[11px] text-slate-500 hover:text-slate-800 hover:bg-slate-50/80 font-bold py-1.5 px-3 rounded-lg";
+                    }
+                });
+
+                if (viewId === 'benefit') {
+                    document.getElementById('benefit-calc-scope-view').classList.remove('hidden');
+                    ModuleVPSBenefit.runCalc();
+                } else if (viewId === 'rebate') {
+                    document.getElementById('tax-rebate-scope-view').classList.remove('hidden');
+                    ModuleTaxRebate.runTaxCalcLogic();
+                } else if (viewId === 'annuity') {
+                    document.getElementById('annuity-scope-view').classList.remove('hidden');
+                    ModuleAnnuity.executePlanSwitch();
+                } else if (viewId === 'commission') {
+                    document.getElementById('agent-commission-scope-view').classList.remove('hidden');
+                    ModuleAgentCommission.calculateAndRender();
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // 1. VPS BENEFIT CALCULATOR CORE ENGINE
+        // ==========================================
+        const ModuleVPSBenefit = {
+            chartInstance: null,
+            rateTable: { high: 15.0, medium: 13.5, low: 12.0, lower: 10.5, lifecycle14: 14.0 },
+
+            syncSchemeReturnRate() {
+                const scheme = document.getElementById('vps-volatilityScheme').value;
+                document.getElementById('vps-annualReturn').value = this.rateTable[scheme];
+                this.runCalc();
+            },
+
+            formatInputField(element) {
+                let textVal = element.value.replace(/[^0-9]/g, '');
+                if (textVal === '') { element.value = ''; return; }
+                element.value = new Intl.NumberFormat('en-US').format(parseInt(textVal, 10));
+            },
+
+            getCleanValue(id) {
+                let numericVal = document.getElementById(id).value.replace(/,/g, '');
+                return parseFloat(numericVal) || 0;
+            },
+
+            runCalc() {
+                const currentAge = parseInt(document.getElementById('vps-currentAge').value) || 0;
+                const retirementAge = parseInt(document.getElementById('vps-retirementAge').value) || 0;
+                const initialInv = this.getCleanValue('vps-initialInv');
+                const contribution = this.getCleanValue('vps-contribution');
+                const rateReturn = parseFloat(document.getElementById('vps-annualReturn').value) / 100 || 0;
+
+                const selectedFreqEl = document.querySelector('input[name="vps-contFreq"]:checked');
+                const cycle = selectedFreqEl ? selectedFreqEl.value : 'monthly';
+                const investmentHorizon = retirementAge - currentAge;
+
+                document.getElementById('vps-yearsDisplay').innerText = investmentHorizon > 0 ? investmentHorizon : 0;
+                const mRate = Math.pow(1 + rateReturn, 1/12) - 1;
+
+                let capitalFund = initialInv;
+                let accumulationInvested = initialInv;
+                let axisLabels = [];
+                let pointValues = [];
+                let appendRowsHtml = "";
+
+                if (investmentHorizon > 0) {
+                    for (let idx = 1; idx <= investmentHorizon; idx++) {
+                        let openBal = capitalFund;
+                        let evaluatedAge = currentAge + idx;
+                        let activeGrowthPrincipal = openBal * (1 + rateReturn);
+                        
+                        let compoundedContributions = 0;
+                        let rawAnnualContAmount = 0;
+
+                        if (cycle === 'monthly') {
+                            rawAnnualContAmount = contribution * 12;
+                            compoundedContributions = (mRate > 0) ? contribution * ((Math.pow(1 + mRate, 12) - 1) / mRate) : rawAnnualContAmount;
+                        } else {
+                            rawAnnualContAmount = contribution;
+                            compoundedContributions = contribution;
+                        }
+
+                        let closingBal = activeGrowthPrincipal + compoundedContributions;
+                        let calculatedGrowth = closingBal - (openBal + rawAnnualContAmount);
+                        accumulationInvested += rawAnnualContAmount;
+
+                        appendRowsHtml += `<tr>
+                            <td>${idx}</td>
+                            <td>${evaluatedAge}</td>
+                            <td>${new Intl.NumberFormat('en-PK').format(Math.round(openBal))}</td>
+                            <td>${new Intl.NumberFormat('en-PK').format(Math.round(rawAnnualContAmount))}</td>
+                            <td>${new Intl.NumberFormat('en-PK').format(Math.round(calculatedGrowth))}</td>
+                            <td>${new Intl.NumberFormat('en-PK').format(Math.round(closingBal))}</td>
+                        </tr>`;
+
+                        capitalFund = closingBal;
+                        axisLabels.push("Year " + idx);
+                        pointValues.push(capitalFund);
+                    }
+                }
+
+                document.getElementById('vps-finalBalanceDisplay').innerText = "PKR " + new Intl.NumberFormat('en-PK', { maximumFractionDigits: 0 }).format(capitalFund);
+                document.getElementById('vps-totalContDisplay').innerText = "PKR " + new Intl.NumberFormat('en-PK', { maximumFractionDigits: 0 }).format(accumulationInvested);
+                document.querySelector('#vps-projectionTable tbody').innerHTML = appendRowsHtml;
+
+                this.renderLineChart(axisLabels, pointValues);
+            },
+
+            renderLineChart(labels, dataPoints) {
+                const ctx = document.getElementById('vps-growthChart').getContext('2d');
+                if (this.chartInstance) this.chartInstance.destroy();
+
+                this.chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'SLRF Projected Fund Value',
+                            data: dataPoints,
+                            borderColor: '#2196F3',
+                            backgroundColor: 'rgba(33, 150, 243, 0.04)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                ticks: {
+                                    callback: function(v) {
+                                        if (v >= 10000000) return 'Rs ' + (v / 10000000).toFixed(2) + ' Cr';
+                                        if (v >= 100000) return 'Rs ' + (v / 100000).toFixed(1) + ' Lac';
+                                        return 'Rs ' + v;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        };
+
+        // ==========================================
+        // 2. TAX REBATE CALCULATOR CORE ENGINE
+        // ==========================================
+        const ModuleTaxRebate = {
+            activeTaxpayerCategory: 'salaried',
+
+            switchTaxCategory(mode) {
+                const sPill = document.getElementById('tax-chkSalaried');
+                const nsPill = document.getElementById('tax-chkNonSalaried');
+
+                if (mode === 'salaried') {
+                    nsPill.checked = false;
+                    this.activeTaxpayerCategory = sPill.checked ? 'salaried' : 'nonsalaried';
+                    if (!sPill.checked) nsPill.checked = true;
+                } else {
+                    sPill.checked = false;
+                    this.activeTaxpayerCategory = nsPill.checked ? 'nonsalaried' : 'salaried';
+                    if (!nsPill.checked) sPill.checked = true;
+                }
+                this.runTaxCalcLogic();
+            },
+
+            evaluateSalariedSlabTax(income) {
+                if (income <= 600000) return 0;
+                if (income <= 1200000) return (income - 600000) * 0.01;
+                if (income <= 2200000) return 6000 + (income - 1200000) * 0.11;
+                if (income <= 3200000) return 116000 + (income - 2200000) * 0.20;
+                if (income <= 4100000) return 316000 + (income - 3200000) * 0.25;
+                if (income <= 5600000) return 541000 + (income - 4100000) * 0.29;
+                if (income <= 7000000) return 976000 + (income - 5600000) * 0.32;
+                return 1424000 + (income - 7000000) * 0.35;
+            },
+
+            evaluateNonSalariedSlabTax(income) {
+                let baseTax = 0;
+                
+                // Standard FY Slabs
+                if (income <= 600000) {
+                    baseTax = 0;
+                } else if (income <= 1200000) {
+                    baseTax = (income - 600000) * 0.15;
+                } else if (income <= 1600000) {
+                    baseTax = 90000 + (income - 1200000) * 0.20;
+                } else if (income <= 3200000) {
+                    baseTax = 170000 + (income - 1600000) * 0.30;
+                } else if (income <= 5600000) {
+                    baseTax = 650000 + (income - 3200000) * 0.40;
+                } else {
+                    baseTax = 1610000 + (income - 5600000) * 0.45;
+                }
+
+                // Apply a 10% surcharge if the income is over Rs. 10,000,000
+                if (income > 10000000) {
+                    baseTax = baseTax * 1.10;
+                }
+
+                return baseTax;
+            },
+
+            formatInputAndTrigger(input) {
+                if (input.id === 'tax-vpsInvestment') {
+                    let digits = input.value.replace(/\D/g, '');
+                    let num = parseInt(digits, 10) || 0;
+                    let mIncome = parseFloat(document.getElementById('tax-monthlyIncome').value.replace(/,/g, '')) || 0;
+                    let limit = (mIncome * 12) * 0.20;
+
+                    if (num > limit) {
+                        input.value = input.getAttribute('data-prev-value') || '';
+                        const wrapEl = document.getElementById('tax-vpsWrapper');
+                        wrapEl.classList.add('error');
+                        setTimeout(() => wrapEl.classList.remove('error'), 500);
+                        return;
+                    }
+                }
+
+                let clean = input.value.replace(/\D/g, '');
+                input.value = (clean === '') ? '' : new Intl.NumberFormat('en-US').format(parseInt(clean, 10));
+                input.setAttribute('data-prev-value', input.value);
+
+                // When monthly income changes, auto-populate VPS Investment to 20% of annual income
+                if (input.id === 'tax-monthlyIncome') {
+                    const monthlyVal = parseFloat(input.value.replace(/,/g, '')) || 0;
+                    const autoVpsAmount = Math.round((monthlyVal * 12) * 0.20);
+                    const vpsInput = document.getElementById('tax-vpsInvestment');
+                    if (vpsInput) {
+                        vpsInput.value = autoVpsAmount > 0 ? new Intl.NumberFormat('en-US').format(autoVpsAmount) : '';
+                        vpsInput.setAttribute('data-prev-value', vpsInput.value);
+                    }
+                }
+
+                this.runTaxCalcLogic();
+            },
+
+            runTaxCalcLogic() {
+                const monthlyInbound = parseFloat(document.getElementById('tax-monthlyIncome').value.replace(/,/g, '')) || 0;
+                const investmentAllocated = parseFloat(document.getElementById('tax-vpsInvestment').value.replace(/,/g, '')) || 0;
+                const annualizedGross = monthlyInbound * 12;
+
+                document.getElementById('tax-annualIncome').value = annualizedGross > 0 ? new Intl.NumberFormat('en-US').format(Math.round(annualizedGross)) : '';
+
+                const primaryTaxDue = (this.activeTaxpayerCategory === 'salaried') 
+                    ? this.evaluateSalariedSlabTax(annualizedGross) 
+                    : this.evaluateNonSalariedSlabTax(annualizedGross);
+
+                const statutoryCeiling = annualizedGross * 0.20;
+                const operationalEffectiveRate = annualizedGross > 0 ? (primaryTaxDue / annualizedGross) : 0;
+                const definitiveContributionEligible = Math.min(investmentAllocated, statutoryCeiling);
+
+                const rebateClaimed = definitiveContributionEligible * operationalEffectiveRate;
+                const customRevisedTax = Math.max(0, primaryTaxDue - rebateClaimed);
+
+                document.getElementById('tax-maxEligibleText').innerText = 'Rs. ' + new Intl.NumberFormat('en-US').format(Math.round(statutoryCeiling));
+                document.getElementById('tax-taxSavings').innerText = 'Rs. ' + new Intl.NumberFormat('en-US').format(Math.round(rebateClaimed));
+                document.getElementById('tax-originalTax').innerText = 'Rs. ' + new Intl.NumberFormat('en-US').format(Math.round(primaryTaxDue));
+                document.getElementById('tax-avgTaxRate').innerText = (operationalEffectiveRate * 100).toFixed(2) + '%';
+                document.getElementById('tax-eligibleContribution').innerText = 'Rs. ' + new Intl.NumberFormat('en-US').format(Math.round(definitiveContributionEligible));
+                document.getElementById('tax-revisedTax').innerText = 'Rs. ' + new Intl.NumberFormat('en-US').format(Math.round(customRevisedTax));
+
+                document.getElementById('tax-originalTaxLabel').innerText = (this.activeTaxpayerCategory === 'salaried')
+                    ? 'Original Tax Liability (Salaried)' : 'Original Tax Liability (Non-Salaried)';
+            }
+        };
+
+        // ==========================================
+        // 3. ANNUITY CALCULATOR CORE ENGINE
+        // ==========================================
+        const ModuleAnnuity = {
+            configMeta: {
+                forever: { title: "Forever Pension Plan", subtitle: "Immediate Life Annuity", af: 6.79921913, guar: 0, def: 0 },
+                doubleSecure: { title: "Double Secure Pension Plan", subtitle: "Guaranteed Life Annuity", af: 7.530754523128, guar: 10, def: 0 },
+                freedom: { title: "Freedom Pension Plan", subtitle: "Deferred Life Annuity", af: 6.0861171876, guar: 0, def: 5 },
+                retireWell: { title: "Retire Well Annuity Plan", subtitle: "Deferred Guaranteed Life Annuity", af: 7.14195875, guar: 10, def: 5 },
+                care5: { title: "Care Annuity Plan", subtitle: "Annuity Certain", af: 6.243770718, guar: 10, def: 0 }
+            },
+
+            formatRs(val) {
+                return val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            },
+
+            formatRsCurrency(val) {
+                return 'Rs ' + this.formatRs(val);
+            },
+
+            formatDate(dateObj) {
+                return dateObj.toISOString().split('T')[0];
+            },
+
+            executePlanSwitch() {
+                const key = document.getElementById('ann-planSelector').value;
+                const item = this.configMeta[key];
+
+                document.getElementById('ann-headerTitle').innerText = item.title;
+                document.getElementById('ann-headerSubtitle').innerText = item.subtitle;
+                document.getElementById('ann-annuityFactor').value = item.af;
+                document.getElementById('ann-guaranteedPeriod').value = item.guar;
+                document.getElementById('ann-defermentPeriod').value = item.def;
+
+                this.runActuarialMath();
+            },
+
+            runActuarialMath() {
+                const C = parseFloat(document.getElementById('ann-contribution').value.replace(/,/g, '')) || 0;
+                const CR = parseFloat(document.getElementById('ann-commRate').value) / 100 || 0;
+                const AR = parseFloat(document.getElementById('ann-adminRate').value) / 100 || 0;
+                const MF = parseFloat(document.getElementById('ann-maintFee').value) || 0;
+                const PR = parseFloat(document.getElementById('ann-profitRate').value) / 100 || 0;
+                const AF = parseFloat(document.getElementById('ann-annuityFactor').value) || 0;
+                const defermentYears = parseInt(document.getElementById('ann-defermentPeriod').value) || 0;
+                
+                const dob = new Date(document.getElementById('ann-dob').value);
+                const riskDate = new Date(document.getElementById('ann-riskDate').value);
+
+                const commAmount = C * CR;
+                const adminAmount = C * AR;
+                
+                const v_t = Math.pow(1 + PR, -defermentYears);
+
+                const spPer10 = ((120 * AF * v_t) + MF) / (1 - CR - AR);
+                const monthlyAnnuity = (C / spPer10) * 10;
+                
+                const maintAmount = (monthlyAnnuity / 10) * MF;
+                
+                const totalDeductions = commAmount + adminAmount + maintAmount;
+                const initialNetFund = C - totalDeductions;
+
+                document.getElementById('ann-outMonthlyAnnuity').innerText = this.formatRsCurrency(monthlyAnnuity);
+
+                let tableHTML = '';
+                let currentFund = initialNetFund;
+                let currentDate = new Date(riskDate);
+                const defermentMonths = defermentYears * 12;
+
+                tableHTML += `
+                    <tr class="bg-blue-50/50">
+                        <td class="px-4 py-2 font-medium">0</td>
+                        <td class="px-4 py-2 text-slate-600">${this.formatDate(currentDate)}</td>
+                        <td class="px-4 py-2 text-right text-red-500">${this.formatRs(commAmount)}</td>
+                        <td class="px-4 py-2 text-right text-red-500">${this.formatRs(adminAmount)}</td>
+                        <td class="px-4 py-2 text-right text-red-500">${this.formatRs(maintAmount)}</td>
+                        <td class="px-4 py-2 text-right text-slate-400">0.00</td>
+                    </tr>
+                `;
+
+                const monthlyInterestRate = PR / 12;
+                let month = 1;
+                
+                while (currentFund > 0 && month <= 480) {
+                    currentDate = new Date(riskDate.getFullYear(), riskDate.getMonth() + month, 28);
+                    
+                    let currentPayout = (month > defermentMonths) ? monthlyAnnuity : 0;
+                    let interestEarned = currentFund * monthlyInterestRate;
+                    
+                    currentFund = currentFund + interestEarned - currentPayout;
+                    if (currentFund < 0) currentFund = 0; 
+
+                    let payoutStyle = (currentPayout > 0) ? "text-emerald-600 font-medium" : "text-slate-400";
+
+                    tableHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-2">${month}</td>
+                            <td class="px-4 py-2 text-slate-600">${this.formatDate(currentDate)}</td>
+                            <td class="px-4 py-2 text-right text-slate-400">0</td>
+                            <td class="px-4 py-2 text-right text-slate-400">0</td>
+                            <td class="px-4 py-2 text-right text-slate-400">0</td>
+                            <td class="px-4 py-2 text-right ${payoutStyle}">${this.formatRs(currentPayout)}</td>
+                        </tr>
+                    `;
+                    month++;
+                }
+
+                document.getElementById('ann-tableBody').innerHTML = tableHTML;
+            }
+        };
+
+        // ==========================================
+        // 4. AGENT COMMISSION CALCULATOR ENGINE
+        // ==========================================
+        const ModuleAgentCommission = {
+            matrixWeights: { equity: 0.025, debt: 0.0125, mm: 0.01 },
+            cutShare: 0.10,
+
+            formatCompactPKR(val) {
+                if (val >= 10000000) return (val / 10000000).toFixed(2) + ' Cr';
+                if (val >= 100000) return (val / 100000).toFixed(1) + ' Lac';
+                return 'Rs ' + Math.round(val).toLocaleString();
+            },
+
+            handleInputFormatting(input) {
+                let text = input.value.replace(/[^0-9]/g, '');
+                if (text !== '') {
+                    input.value = new Intl.NumberFormat('en-US').format(parseInt(text, 10));
+                }
+                this.calculateAndRender();
+            },
+
+            calculateAndRender() {
+                const parseVal = (id) => Number(document.getElementById(id).value.replace(/,/g, '')) || 0;
+
+                const eqAum = parseVal('agt-equity-aum');
+                const eqCont = parseVal('agt-equity-contrib');
+                const dtAum = parseVal('agt-debt-aum');
+                const dtCont = parseVal('agt-debt-contrib');
+                const mmAum = parseVal('agt-mm-aum');
+                const mmCont = parseVal('agt-mm-contrib');
+
+                const years = Math.max(1, Number(document.getElementById('agt-projection-years').value) || 1);
+                const yieldsRate = (window.Number(document.getElementById('agt-projection-rate').value) || 0) / 100;
+
+                const aggregatedInitialAum = eqAum + dtAum + mmAum;
+                const aggregatedContribution = eqCont + dtCont + mmCont;
+
+                document.getElementById('agt-lbl-initial-aum').textContent = "Rs. " + aggregatedInitialAum.toLocaleString('en-US');
+                document.getElementById('agt-lbl-total-contrib').textContent = "Rs. " + aggregatedContribution.toLocaleString('en-US');
+                document.getElementById('agt-badge-years-summary').textContent = `Cumulative (${years} Years)`;
+
+                let arrList = [];
+                let trackingEqAum = eqAum, trackingDtAum = dtAum, trackingMmAum = mmAum;
+                let cEqFee = 0, cDtFee = 0, cMmFee = 0;
+                let cCommission = 0, cMgmtSum = 0, aggregatedClosingVolume = 0;
+
+                for (let y = 1; y <= years; y++) {
+                    let openVol = trackingEqAum + trackingDtAum + trackingMmAum;
+                    let eqG = trackingEqAum * yieldsRate, dtG = trackingDtAum * yieldsRate, mmG = trackingMmAum * yieldsRate;
+                    
+                    let closingEq = trackingEqAum + eqG + eqCont;
+                    let closingDt = trackingDtAum + dtG + dtCont;
+                    let closingMm = trackingMmAum + mmG + mmCont;
+
+                    let eF = closingEq * this.matrixWeights.equity;
+                    let dF = closingDt * this.matrixWeights.debt;
+                    let mF = closingMm * this.matrixWeights.mm;
+                    
+                    let sliceFee = eF + dF + mF;
+                    let localizedComm = sliceFee * this.cutShare;
+
+                    cEqFee += eF; cDtFee += dF; cMmFee += mF;
+                    cCommission += localizedComm; cMgmtSum += sliceFee;
+                    
+                    let totalClosing = closingEq + closingDt + closingMm;
+                    aggregatedClosingVolume += totalClosing;
+
+                    arrList.push({
+                        year: y,
+                        open: openVol,
+                        growth: (eqG + dtG + mmG),
+                        contribution: aggregatedContribution,
+                        close: totalClosing,
+                        comm: localizedComm,
+                        cumulative: cCommission
+                    });
+
+                    trackingEqAum = closingEq;
+                    trackingDtAum = closingDt;
+                    trackingMmAum = closingMm;
+                }
+
+                document.getElementById('agt-val-cumulative-commission').textContent = "Rs. " + Math.round(cCommission).toLocaleString('en-US');
+                document.getElementById('agt-val-avg-annual-commission').textContent = "Rs. " + Math.round(cCommission / years).toLocaleString('en-US');
+                document.getElementById('agt-val-total-mgmt-fee').textContent = "Rs. " + Math.round(cMgmtSum).toLocaleString('en-US');
+                
+                document.getElementById('agt-fee-equity-cumulative').textContent = "Rs. " + Math.round(cEqFee).toLocaleString('en-US');
+                document.getElementById('agt-fee-equity-annual-avg').textContent = "Rs. " + Math.round(cEqFee / years).toLocaleString('en-US') + " / yr avg";
+                document.getElementById('agt-fee-debt-cumulative').textContent = "Rs. " + Math.round(cDtFee).toLocaleString('en-US');
+                document.getElementById('agt-fee-debt-annual-avg').textContent = "Rs. " + Math.round(cDtFee / years).toLocaleString('en-US') + " / yr avg";
+                document.getElementById('agt-fee-mm-cumulative').textContent = "Rs. " + Math.round(cMmFee).toLocaleString('en-US');
+                document.getElementById('agt-fee-mm-annual-avg').textContent = "Rs. " + Math.round(cMmFee / years).toLocaleString('en-US') + " / yr avg";
+                
+                document.getElementById('agt-fee-total-mgmt').textContent = "Rs. " + Math.round(cMgmtSum).toLocaleString('en-US');
+                document.getElementById('agt-fee-total-commission').textContent = "Rs. " + Math.round(cCommission).toLocaleString('en-US');
+                document.getElementById('agt-val-weighted-average').textContent = (aggregatedClosingVolume > 0 ? (cMgmtSum / aggregatedClosingVolume) * 100 : 0).toFixed(3) + "%";
+
+                let appendTableRowsHtml = "";
+                arrList.forEach(r => {
+                    appendTableRowsHtml += `<tr class="hover:bg-slate-50/80 transition-colors">
+                        <td class="p-4 font-bold text-slate-800">Year ${r.year}</td>
+                        <td class="p-4 text-right text-slate-600 font-medium">Rs. ${Math.round(r.open).toLocaleString('en-US')}</td>
+                        <td class="p-4 text-right text-emerald-600 font-bold">+Rs. ${Math.round(r.growth).toLocaleString('en-US')}</td>
+                        <td class="p-4 text-right text-slate-600 font-medium">Rs. ${Math.round(r.contribution).toLocaleString('en-US')}</td>
+                        <td class="p-4 text-right text-slate-900 font-bold">Rs. ${Math.round(r.close).toLocaleString('en-US')}</td>
+                        <td class="p-4 text-right font-bold text-slate-800">Rs. ${Math.round(r.comm).toLocaleString('en-US')}</td>
+                        <td class="p-4 text-right font-extrabold text-indigo-600 bg-indigo-50/30">Rs. ${Math.round(r.cumulative).toLocaleString('en-US')}</td>
+                    </tr>`;
+                });
+                document.getElementById('agt-projection-table-body').innerHTML = appendTableRowsHtml;
+                this.generateVectorGrowthCurve(arrList, years);
+            },
+
+            generateVectorGrowthCurve(data, years) {
+                const act = document.getElementById('agt-chart-container-active');
+                const inact = document.getElementById('agt-chart-container-inactive');
+                if (years <= 1) { act.classList.add('hidden'); inact.classList.remove('hidden'); return; }
+                act.classList.remove('hidden'); inact.classList.add('hidden');
+
+                const svg = document.getElementById('agt-svg-chart');
+                const width = Math.max(svg.clientWidth, 600), height = Math.max(svg.clientHeight, 384);
+                const lPad = 85, rPad = 30, tPad = 20, bPad = 35;
+
+                const graphW = width - lPad - rPad, graphH = height - tPad - bPad;
+                const maxVal = Math.max(...data.map(d => d.cumulative)) * 1.15;
+
+                const getX = (i) => lPad + (i / (data.length - 1)) * graphW;
+                const getY = (v) => height - bPad - (v / maxVal) * graphH;
+
+                let pointsStr = data.map((d, i) => `${getX(i)},${getY(d.cumulative)}`).join(' ');
+                let blueprintHtml = `<defs><linearGradient id="cumGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366f1" stop-opacity="0.25"/><stop offset="100%" stop-color="#6366f1" stop-opacity="0"/></linearGradient></defs>`;
+
+                for(let idx=0; idx<5; idx++) {
+                    let ratio = idx / 4;
+                    let hY = (height - bPad) - ratio * graphH;
+                    blueprintHtml += `<line x1="${lPad}" y1="${hY}" x2="${width-rPad}" y2="${hY}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>`;
+                    blueprintHtml += `<text x="${lPad-10}" y="${hY+4}" text-anchor="end" class="text-[9px] fill-slate-500 font-mono font-bold">${this.formatCompactPKR(maxVal * ratio)}</text>`;
+                }
+
+                data.forEach((row, idx) => {
+                    const x = getX(idx);
+                    const labelInterval = Math.ceil(years / 10);
+                    if (idx % labelInterval === 0 || idx === data.length - 1) {
+                        blueprintHtml += `<line x1="${x}" y1="${tPad}" x2="${x}" y2="${height-bPad}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>`;
+                        blueprintHtml += `<text x="${x}" y="${height-bPad+18}" text-anchor="middle" class="text-[10px] fill-slate-500 font-bold font-mono">Yr ${row.year}</text>`;
+                    }
+                });
+
+                blueprintHtml += `
+                    <line x1="${lPad}" y1="${tPad}" x2="${lPad}" y2="${height-bPad}" stroke="#94a3b8" stroke-width="1.5" />
+                    <line x1="${lPad}" y1="${height-bPad}" x2="${width-rPad}" y2="${height-bPad}" stroke="#94a3b8" stroke-width="1.5" />
+                `;
+
+                if (data.length > 1) {
+                    blueprintHtml += `<path d="M ${lPad},${height-bPad} L ${pointsStr} L ${width-rPad},${height-bPad} Z" fill="url(#cumGrad)"/>`;
+                    blueprintHtml += `<polyline fill="none" stroke="#6366f1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" points="${pointsStr}"/>`;
+                }
+                svg.innerHTML = blueprintHtml;
+            }
+        };
+
+        // Initialize Native Form Watchers & Routing checks
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            // Run parameter-based router checks on initialization
+            const urlParams = new URLSearchParams(window.location.search);
+            const viewQuery = urlParams.get('view');
+            const validViews = ['benefit', 'rebate', 'annuity', 'commission'];
+            
+            if (viewQuery && validViews.includes(viewQuery)) {
+                routerSwitchView(viewQuery);
+            } else {
+                routerSwitchView('home');
+            }
+
+            const annInput = document.getElementById('ann-contribution');
+            if (annInput) {
+                annInput.addEventListener('blur', function() {
+                    let value = this.value.replace(/,/g, '');
+                    if (!isNaN(value) && value !== '') this.value = parseFloat(value).toLocaleString('en-US');
+                    ModuleAnnuity.runActuarialMath();
+                });
+                annInput.addEventListener('focus', function() { this.value = this.value.replace(/,/g, ''); });
+            }
+
+            const annToggleAdvBtn = document.getElementById('ann-toggleAdvancedBtn');
+            if (annToggleAdvBtn) {
+                annToggleAdvBtn.addEventListener('click', function() {
+                    const advancedDiv = document.getElementById('ann-advancedParams');
+                    const icon = document.getElementById('ann-toggleIcon');
+                    const textSpan = this.querySelector('span');
+
+                    if (advancedDiv.classList.contains('hidden')) {
+                        advancedDiv.classList.remove('hidden');
+                        icon.classList.add('rotate-180');
+                        textSpan.textContent = 'Hide Actuarial Parameters';
+                    } else {
+                        advancedDiv.classList.add('hidden');
+                        icon.classList.remove('rotate-180');
+                        textSpan.textContent = 'Show Actuarial Parameters';
+                    }
+                });
+            }
+
+            ['agt-equity-aum', 'agt-equity-contrib', 'agt-debt-aum', 'agt-debt-contrib', 'agt-mm-aum', 'agt-mm-contrib'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.addEventListener('input', () => ModuleAgentCommission.handleInputFormatting(element));
+            });
+
+            // Instant input listeners for projection years & expected return
+            ['agt-projection-years', 'agt-projection-rate'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('input', () => ModuleAgentCommission.calculateAndRender());
+            });
+
+            document.getElementById('agt-toggle-table-btn').addEventListener('click', () => {
+                document.getElementById('agt-toggle-table-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all bg-white text-slate-900 shadow-md";
+                document.getElementById('agt-toggle-chart-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all text-slate-500 hover:text-slate-800";
+                document.getElementById('agt-table-container-view').classList.remove('hidden');
+                document.getElementById('agt-chart-container-view').classList.add('hidden');
+            });
+            document.getElementById('agt-toggle-chart-btn').addEventListener('click', () => {
+                document.getElementById('agt-toggle-chart-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all bg-white text-slate-900 shadow-md";
+                document.getElementById('agt-toggle-table-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all text-slate-500 hover:text-slate-800";
+                document.getElementById('agt-table-container-view').classList.add('hidden');
+                document.getElementById('agt-chart-container-view').classList.remove('hidden');
+                ModuleAgentCommission.calculateAndRender();
+            });
+
+            window.addEventListener('resize', () => {
+                if (!document.getElementById('agent-commission-scope-view').classList.contains('hidden') && !document.getElementById('agt-chart-container-view').classList.contains('hidden')) {
+                    ModuleAgentCommission.calculateAndRender();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
