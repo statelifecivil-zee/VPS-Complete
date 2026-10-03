@@ -279,7 +279,6 @@
 <a class="d-block py-2 fw-semibold border-bottom sl-border-slic-medium text-decoration-none sl-link" href="#coverage">Complimentary Coverage</a>
 <a class="d-block py-2 fw-semibold border-bottom sl-border-slic-medium text-decoration-none sl-link" href="#subfunds">Sub-Funds &amp; Benchmarks</a>
 <a class="d-block py-2 fw-semibold border-bottom sl-border-slic-medium text-decoration-none sl-link" href="#allocations">Allocation Schemes</a>
-<a class="d-block py-2 fw-bold sl-text-slic-light border-bottom sl-border-slic-medium text-decoration-none sl-link" href="#calculator">Tax Rebate Calculator</a>
 <a class="d-block py-2 fw-semibold border-bottom sl-border-slic-medium text-decoration-none sl-link" href="#tax-tables">Tax Slabs Reference</a>
 <a class="d-block text-center sl-bg-0056d6 sl-hover-bg-0042a5 text-white sl-font-extrabold py-2 rounded-4 shadow text-uppercase sl-tracking-wide sl-text-sm mt-3 text-decoration-none sl-link" href="https://itmindsuat.cdcaccess.com.pk/slic/invLogin.xhtml" rel="noopener noreferrer" target="_blank">
 <i class="bi bi-send-fill text-white sl-text-sm me-2"></i> OPEN VPS ACCOUNT
@@ -318,9 +317,6 @@
 </div>
 <!-- Action Buttons -->
 <div class="d-flex flex-wrap gap-3 pt-3">
-<a class="gold-gradient sl-text-slic-dark sl-hover-brightness-105 fw-bold px-4 py-3 rounded-4 shadow sl-transition d-flex align-items-center gap-2 sl-text-sm text-uppercase sl-tracking-wider text-decoration-none sl-link" href="#calculator">
-<i class="bi bi-calculator-fill"></i> Calculate Your Tax Savings and Benefit
-            </a>
 <a class="sl-bg-white-10 sl-hover-bg-white-20 border sl-border-white-30 text-white fw-semibold px-4 py-3 rounded-4 sl-transition d-flex align-items-center gap-2 sl-text-sm text-decoration-none sl-link" href="/cpf/Broucher-CPF.pdf">
 <i class="bi bi-file-earmark-pdf-fill sl-text-slic-light"></i> Download VPS Brochure
             </a>
@@ -333,52 +329,6 @@
 <a class="sl-bg-white-10 sl-hover-bg-white-20 border sl-border-white-30 text-white fw-semibold px-4 py-3 rounded-4 sl-transition d-flex align-items-center gap-2 sl-text-sm text-decoration-none sl-link" href="/cpf/TD-Conventional.pdf" rel="noopener noreferrer" target="_blank">
 <i class="bi bi-file-earmark-richtext-fill sl-text-slic-light"></i> Download Offering Document
             </a>
-</div>
-</div></div>
-<!-- Quick Tax Calculator Widget -->
-<div class="col-12 col-lg-5"><div class="">
-<div class="border glass-card rounded-4 p-4 p-sm-4 sl-text-gray-800 shadow-lg border-2 sl-border-slic-primary position-relative">
-<div class="position-absolute sl-ntop-4 sl-right-6 sl-bg-slic-primary text-white sl-text-xs fw-bold px-3 py-1 rounded-pill shadow-sm border sl-border-slic-light">
-              FY 2025-26 Tax Slab Tool
-            </div>
-<h3 class="sl-text-xl fw-bold sl-text-slic-dark mb-1 d-flex align-items-center gap-2 sl-lh-inherit">
-<i class="bi bi-coin sl-text-slic-primary"></i> Quick SLRSF Tax Saver
-            </h3>
-<p class="sl-text-xs sl-text-gray-500 mb-4">See how much tax you can immediately save with SLRSF.</p>
-<div class="sl-space-y-4">
-<div>
-<label class="d-block sl-text-xs fw-bold text-uppercase sl-text-gray-600 mb-1">Employment Status</label>
-<div class="row g-2">
-<div class="col-6"><button class="btn sl-btn py-2 px-3 sl-text-xs fw-bold rounded-3 border text-center sl-transition sl-bg-slic-primary text-white sl-border-slic-primary h-100 w-100" id="quickSalariedBtn" onclick="setQuickType('salaried')">
-                    Salaried Individual
-                  </button></div>
-<div class="col-6"><button class="btn sl-btn py-2 px-3 sl-text-xs fw-bold rounded-3 border text-center sl-transition sl-bg-gray-100 sl-text-gray-700 sl-border-gray-300 h-100 w-100" id="quickBusinessBtn" onclick="setQuickType('business')">
-                    Non-Salaried / Business
-                  </button></div>
-</div>
-</div>
-<div>
-<label class="d-block sl-text-xs fw-bold text-uppercase sl-text-gray-600 mb-1">Annual Taxable Income (PKR)</label>
-<input class="form-control sl-input w-100 px-3 py-2 rounded-3 border sl-border-gray-300 sl-focus-ring-slic-primary sl-focus-border-slic-primary sl-text-sm fw-bold sl-text-slic-dark" id="quickIncomeInput" oninput="calculateQuickTax()" step="100000" type="number" value="3600000"/>
-</div>
-<div class="sl-bg-slic-bglight p-3 rounded-4 border sl-border-slic-medium-20 sl-space-y-2">
-<div class="d-flex justify-content-between sl-text-xs">
-<span class="sl-text-gray-600">Max Eligible SLRSF Investment (20%):</span>
-<span class="fw-bold sl-text-slic-dark" id="quickMaxInv">PKR 720,000</span>
-</div>
-<div class="d-flex justify-content-between sl-text-sm pt-1 border-top sl-border-gray-200">
-<span class="fw-bold sl-text-slic-primary">Estimated Tax Credit:</span>
-<span class="sl-font-extrabold sl-text-slic-primary sl-text-base" id="quickTaxCredit">PKR 110,000</span>
-</div>
-<div class="d-flex justify-content-between sl-text-xs sl-text-blue-700">
-<span>Net Savings on Investment:</span>
-<span class="fw-bold" id="quickSavingsPct">15.3%</span>
-</div>
-</div>
-<a class="d-block text-center sl-bg-slic-primary sl-hover-bg-slic-dark text-white sl-text-xs text-uppercase fw-bold py-2 rounded-3 sl-transition sl-tracking-wider text-decoration-none sl-link" href="#calculator">
-                Detailed Calculator &amp; Corpus <i class="bi bi-arrow-right ms-1"></i>
-</a>
-</div>
 </div>
 </div></div>
 </div>
@@ -708,138 +658,6 @@
 </div>
 </div>
 </section>
-<!-- INTERACTIVE TAX CALCULATOR -->
-<section class="sl-py-16 sl-bg-slic-bglight border-top sl-border-gray-200" id="calculator">
-<div class="container">
-<div class="text-center sl-max-w-3xl mx-auto mb-5">
-<span class="sl-text-xs text-uppercase fw-bold sl-tracking-widest sl-text-slic-primary sl-bg-blue-100 px-3 py-1 rounded-pill">Interactive Planning Tool</span>
-<h2 class="sl-text-3xl sl-font-black sl-text-slic-dark mt-2 mb-0 sl-lh-inherit">SLRSF Tax Rebate &amp; Retirement Calculator</h2>
-<div class="sl-w-16 sl-h-1 sl-bg-slic-primary mx-auto my-2 rounded-pill"></div>
-<p class="sl-text-gray-600 sl-text-xs sl-sm-text-sm mb-0">Calculate your exact Section 63 tax refund and project your future retirement lump sum.</p>
-</div>
-<div class="row g-4 align-items-start">
-<div class="col-12 col-lg-6"><div class="bg-white p-4 p-sm-4 rounded-4 shadow border sl-border-gray-200 sl-space-y-6">
-<div class="border-bottom sl-border-gray-200 pb-3">
-<h3 class="sl-text-lg fw-bold sl-text-slic-dark d-flex align-items-center gap-2 mb-0 sl-lh-inherit">
-<i class="bi bi-sliders sl-text-slic-primary"></i> Step 1: Input Financial Profile
-            </h3>
-</div>
-<div>
-<label class="d-block sl-text-xs fw-bold sl-text-gray-700 text-uppercase mb-2">Category / Employment Status</label>
-<div class="row g-3">
-<div class="col-6"><button class="btn sl-btn py-2 px-3 rounded-4 fw-bold sl-text-xs border text-center sl-transition sl-bg-slic-primary text-white sl-border-slic-primary shadow-sm h-100 w-100" id="calcTypeSalaried" onclick="setCalcType('salaried')">
-<i class="bi bi-briefcase-fill me-1"></i> Salaried Individual
-              </button></div>
-<div class="col-6"><button class="btn sl-btn py-2 px-3 rounded-4 fw-bold sl-text-xs border text-center sl-transition sl-bg-gray-50 sl-text-gray-700 sl-border-gray-300 h-100 w-100" id="calcTypeBusiness" onclick="setCalcType('business')">
-<i class="bi bi-shop me-1"></i> Business / Self-Employed
-              </button></div>
-</div>
-</div>
-<div class="row g-3">
-<div class="col-12 col-sm-6"><div class="h-100 w-100">
-<label class="d-block sl-text-xs fw-bold sl-text-gray-700 text-uppercase mb-1">Monthly Taxable Income (PKR)</label>
-<div class="position-relative">
-<span class="position-absolute sl-left-3 sl-top-3 sl-text-gray-400 sl-text-xs fw-bold">Rs.</span>
-<input class="form-control sl-input w-100 ps-5 pe-3 py-2 rounded-4 border sl-border-gray-300 fw-bold sl-text-slic-dark sl-text-sm sl-focus-ring-slic-primary sl-focus-border-slic-primary" id="monthlyIncome" oninput="syncIncome('monthly')" step="10000" type="number" value="300000"/>
-</div>
-</div></div>
-<div class="col-12 col-sm-6"><div class="h-100 w-100">
-<label class="d-block sl-text-xs fw-bold sl-text-gray-700 text-uppercase mb-1">Annual Taxable Income (PKR)</label>
-<div class="position-relative">
-<span class="position-absolute sl-left-3 sl-top-3 sl-text-gray-400 sl-text-xs fw-bold">Rs.</span>
-<input class="form-control sl-input w-100 ps-5 pe-3 py-2 rounded-4 border sl-border-gray-300 fw-bold sl-text-slic-dark sl-text-sm sl-focus-ring-slic-primary sl-focus-border-slic-primary" id="annualIncome" oninput="syncIncome('annual')" step="50000" type="number" value="3600000"/>
-</div>
-</div></div>
-</div>
-<div>
-<div class="d-flex justify-content-between align-items-center mb-1">
-<label class="sl-text-xs fw-bold sl-text-gray-700 text-uppercase mb-0">Proposed Annual Investment in SLRSF</label>
-<span class="sl-text-sm sl-font-extrabold sl-text-slic-primary" id="vpsInvestVal">PKR 720,000</span>
-</div>
-<input class="form-range w-100 sl-cursor-pointer sl-accent-slic-primary" id="vpsInvestSlider" max="1080000" min="10000" oninput="updateCalculator()" step="10000" type="range" value="720000"/>
-<div class="d-flex justify-content-between sl-text-10px sl-text-gray-400 mt-1 fw-semibold">
-<span>Min PKR 10,000</span>
-<span id="maxAllowedLabel">Max 20% Limit: PKR 720,000</span>
-</div>
-</div>
-<div class="row g-3 pt-2">
-<div class="col-12 col-sm-6"><div class="h-100 w-100">
-<label class="d-block sl-text-xs fw-bold sl-text-gray-700 text-uppercase mb-1">Investment Horizon (Years)</label>
-<select class="form-select sl-input select2-init w-100 px-3 py-2 rounded-4 border sl-border-gray-300 fw-bold sl-text-sm sl-text-slic-dark sl-focus-ring-slic-primary" id="investYears" onchange="updateCalculator()">
-<option value="5">5 Years</option>
-<option value="10">10 Years</option>
-<option selected="" value="15">15 Years</option>
-<option value="20">20 Years</option>
-<option value="25">25 Years</option>
-</select>
-</div></div>
-<div class="col-12 col-sm-6"><div class="h-100 w-100">
-<label class="d-block sl-text-xs fw-bold sl-text-gray-700 text-uppercase mb-1">Expected Return (% p.a.)</label>
-<select class="form-select sl-input select2-init w-100 px-3 py-2 rounded-4 border sl-border-gray-300 fw-bold sl-text-sm sl-text-slic-dark sl-focus-ring-slic-primary" id="expectedReturn" onchange="updateCalculator()">
-<option value="10">10% (Conservative / Lower Volatility)</option>
-<option selected="" value="13">13% (Balanced / Medium Volatility)</option>
-<option value="16">16% (Aggressive / High Volatility)</option>
-</select>
-</div></div>
-</div>
-</div></div>
-<div class="col-12 col-lg-6"><div class="sl-space-y-6">
-<div class="border sl-bg-slic-dark text-white p-4 p-sm-4 rounded-4 shadow-lg border-2 sl-border-slic-primary position-relative overflow-hidden">
-<div class="position-absolute sl-nright-10 sl-nbottom-10 sl-opacity-10 sl-text-slic-light sl-text-9xl">
-<i class="bi bi-coin"></i>
-</div>
-<div class="border-bottom sl-border-slic-medium-50 pb-3 mb-4">
-<span class="sl-text-xs fw-bold sl-text-slic-light text-uppercase sl-tracking-widest">Calculated Results</span>
-<h3 class="sl-text-2xl fw-bold text-white mt-1 mb-0 sl-lh-inherit">Your Tax Rebate &amp; Wealth Summary</h3>
-</div>
-<div class="row g-3 mb-4">
-<div class="col-6"><div class="sl-bg-white-10 p-3 rounded-4 border sl-border-white-10 h-100 w-100">
-<p class="sl-text-11px sl-text-gray-300 fw-medium text-uppercase mb-0">Standard Tax Before VPS</p>
-<p class="sl-text-xl sl-font-black text-white mt-1 mb-0" id="resTaxBefore">PKR 550,000</p>
-</div></div>
-<div class="col-6"><div class="sl-bg-slic-primary-30 p-3 rounded-4 border sl-border-slic-light-40 h-100 w-100">
-<p class="sl-text-11px sl-text-slic-light fw-bold text-uppercase mb-0">Tax Saved (Annual Credit)</p>
-<p class="sl-text-2xl sl-font-black sl-text-slic-gold mt-1 mb-0" id="resTaxSaved">PKR 110,000</p>
-</div></div>
-</div>
-<div class="sl-space-y-3 sl-text-xs border-top sl-border-slic-medium-40 pt-3">
-<div class="d-flex justify-content-between align-items-center sl-text-gray-200">
-<span>Maximum Eligible Investment Allowance (20%):</span>
-<strong class="text-white fw-bold" id="resMaxAllowed">PKR 720,000</strong>
-</div>
-<div class="d-flex justify-content-between align-items-center sl-text-gray-200">
-<span>Effective Net Investment Outlay:</span>
-<strong class="sl-text-slic-light fw-bold" id="resEffectiveCost">PKR 610,000</strong>
-</div>
-<div class="d-flex justify-content-between align-items-center sl-text-gray-200">
-<span>Instant Return on Investment via Tax Refund:</span>
-<strong class="sl-text-cyan-300 fw-bold sl-text-sm" id="resSavingsPct">15.3%</strong>
-</div>
-</div>
-<div class="mt-4 pt-4 sl-border-t-2 sl-border-slic-primary-50 sl-bg-slic-primary-60 p-3 rounded-4">
-<div class="d-flex justify-content-between align-items-end">
-<div>
-<p class="sl-text-11px sl-text-slic-light text-uppercase fw-bold sl-tracking-wider mb-0">Projected Retirement Corpus</p>
-<p class="sl-text-3xl sl-font-black text-white mt-1 mb-0" id="resFutureCorpus">PKR 32,883,649</p>
-</div>
-<div class="text-end">
-<p class="sl-text-10px sl-text-gray-200 mb-0">50% Tax-Free Cash</p>
-<p class="sl-text-sm fw-bold sl-text-slic-gold mb-0" id="resTaxFreeCash">PKR 16,441,825</p>
-</div>
-</div>
-<p class="sl-text-10px sl-text-gray-300 mt-2 fst-italic mb-0">*Assumes annual investment of PKR <span id="resAnnualCompText">720,000</span> for <span id="resYearsText">15</span> years at <span id="resReturnText">13</span>% p.a. expected return.</p>
-</div>
-</div>
-<div class="sl-bg-blue-50 border sl-border-blue-200 p-3 rounded-4 sl-text-xs sl-text-slic-dark d-flex align-items-start gap-3">
-<i class="bi bi-info-circle-fill sl-text-slic-primary sl-text-base mt-1"></i>
-<div>
-<strong>Statutory Disclosure:</strong> Tax credit is governed by Section 63 of the Income Tax Ordinance, 2001. Lump sum withdrawal up to 50% at retirement is tax-free. Early redemptions prior to retirement age are subject to withholding tax as stipulated by prevailing tax laws.
-            </div>
-</div>
-</div></div>
-</div>
-</div>
-</section>
 <!-- OFFICIAL TAX CREDIT TABLES SECTION -->
 <section class="sl-py-16 bg-white border-top sl-border-gray-200" id="tax-tables">
 <div class="container">
@@ -1040,7 +858,6 @@
 <li><a class="sl-hover-text-slic-gold sl-transition text-decoration-none sl-link" href="#coverage">Complimentary Coverage</a></li>
 <li><a class="sl-hover-text-slic-gold sl-transition text-decoration-none sl-link" href="#subfunds">Sub-Funds &amp; Benchmarks</a></li>
 <li><a class="sl-hover-text-slic-gold sl-transition text-decoration-none sl-link" href="#allocations">Allocation Schemes</a></li>
-<li><a class="sl-hover-text-slic-gold sl-transition text-decoration-none sl-link" href="#calculator">Tax Savings Calculator</a></li>
 </ul>
 </div></div>
 <div class="col-12 col-md-6 col-lg-3"><div class="h-100 w-100">
@@ -1084,8 +901,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script crossorigin="anonymous" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
-    let currentCalcType = 'salaried';
-    let quickCalcType = 'salaried';
 
     // Mobile Navigation
     const mobileBtn = document.getElementById('mobileMenuBtn');
@@ -1172,133 +987,6 @@
       }
     }
 
-    // Quick Tax Calculator
-    function setQuickType(type) {
-      quickCalcType = type;
-      const salariedBtn = document.getElementById('quickSalariedBtn');
-      const businessBtn = document.getElementById('quickBusinessBtn');
-
-      if (type === 'salaried') {
-        salariedBtn.className = 'btn sl-btn py-2 px-3 sl-text-xs fw-bold rounded-3 border text-center sl-transition sl-bg-slic-primary text-white sl-border-slic-primary';
-        businessBtn.className = 'btn sl-btn py-2 px-3 sl-text-xs fw-bold rounded-3 border text-center sl-transition sl-bg-gray-100 sl-text-gray-700 sl-border-gray-300';
-      } else {
-        businessBtn.className = 'btn sl-btn py-2 px-3 sl-text-xs fw-bold rounded-3 border text-center sl-transition sl-bg-slic-primary text-white sl-border-slic-primary';
-        salariedBtn.className = 'btn sl-btn py-2 px-3 sl-text-xs fw-bold rounded-3 border text-center sl-transition sl-bg-gray-100 sl-text-gray-700 sl-border-gray-300';
-      }
-      calculateQuickTax();
-    }
-
-    function calculateQuickTax() {
-      const income = parseFloat(document.getElementById('quickIncomeInput').value) || 0;
-      const maxInv = income * 0.20;
-      let estimatedTax = 0;
-
-      if (quickCalcType === 'salaried') {
-        if (income <= 600000) estimatedTax = 0;
-        else if (income <= 1200000) estimatedTax = (income - 600000) * 0.05;
-        else if (income <= 2200000) estimatedTax = 30000 + (income - 1200000) * 0.15;
-        else if (income <= 3200000) estimatedTax = 180000 + (income - 2200000) * 0.25;
-        else if (income <= 4100000) estimatedTax = 430000 + (income - 3200000) * 0.30;
-        else estimatedTax = 700000 + (income - 4100000) * 0.35;
-      } else {
-        if (income <= 600000) estimatedTax = 0;
-        else if (income <= 1200000) estimatedTax = (income - 600000) * 0.15;
-        else if (income <= 1600000) estimatedTax = 90000 + (income - 1200000) * 0.20;
-        else if (income <= 3200000) estimatedTax = 170000 + (income - 1600000) * 0.30;
-        else estimatedTax = 650000 + (income - 3200000) * 0.35;
-      }
-
-      const avgTaxRate = income > 0 ? (estimatedTax / income) : 0;
-      const taxCredit = maxInv * avgTaxRate;
-      const savingsPct = maxInv > 0 ? (taxCredit / maxInv) * 100 : 0;
-
-      document.getElementById('quickMaxInv').innerText = 'PKR ' + Math.round(maxInv).toLocaleString();
-      document.getElementById('quickTaxCredit').innerText = 'PKR ' + Math.round(taxCredit).toLocaleString();
-      document.getElementById('quickSavingsPct').innerText = savingsPct.toFixed(1) + '%';
-    }
-
-    // Full Calculator Logic
-    function setCalcType(type) {
-      currentCalcType = type;
-      const salariedBtn = document.getElementById('calcTypeSalaried');
-      const businessBtn = document.getElementById('calcTypeBusiness');
-
-      if (type === 'salaried') {
-        salariedBtn.className = 'btn sl-btn py-2 px-3 rounded-4 fw-bold sl-text-xs border text-center sl-transition sl-bg-slic-primary text-white sl-border-slic-primary shadow-sm';
-        businessBtn.className = 'btn sl-btn py-2 px-3 rounded-4 fw-bold sl-text-xs border text-center sl-transition sl-bg-gray-50 sl-text-gray-700 sl-border-gray-300';
-      } else {
-        businessBtn.className = 'btn sl-btn py-2 px-3 rounded-4 fw-bold sl-text-xs border text-center sl-transition sl-bg-slic-primary text-white sl-border-slic-primary shadow-sm';
-        salariedBtn.className = 'btn sl-btn py-2 px-3 rounded-4 fw-bold sl-text-xs border text-center sl-transition sl-bg-gray-50 sl-text-gray-700 sl-border-gray-300';
-      }
-      updateCalculator();
-    }
-
-    function syncIncome(source) {
-      if (source === 'monthly') {
-        const m = parseFloat(document.getElementById('monthlyIncome').value) || 0;
-        document.getElementById('annualIncome').value = m * 12;
-      } else {
-        const a = parseFloat(document.getElementById('annualIncome').value) || 0;
-        document.getElementById('monthlyIncome').value = Math.round(a / 12);
-      }
-      updateCalculator();
-    }
-
-    function updateCalculator() {
-      const annualInc = parseFloat(document.getElementById('annualIncome').value) || 0;
-      const maxEligible = annualInc * 0.20;
-      
-      const vpsSlider = document.getElementById('vpsInvestSlider');
-      vpsSlider.max = Math.max(maxEligible * 1.5, 1000000);
-      
-      let proposedInv = parseFloat(vpsSlider.value) || 0;
-      document.getElementById('vpsInvestVal').innerText = 'PKR ' + proposedInv.toLocaleString();
-      document.getElementById('maxAllowedLabel').innerText = 'Max 20% Limit: PKR ' + Math.round(maxEligible).toLocaleString();
-
-      const eligibleInv = Math.min(proposedInv, maxEligible);
-
-      let tax = 0;
-      if (currentCalcType === 'salaried') {
-        if (annualInc <= 600000) tax = 0;
-        else if (annualInc <= 1200000) tax = (annualInc - 600000) * 0.05;
-        else if (annualInc <= 2200000) tax = 30000 + (annualInc - 1200000) * 0.15;
-        else if (annualInc <= 3200000) tax = 180000 + (annualInc - 2200000) * 0.25;
-        else if (annualInc <= 4100000) tax = 430000 + (annualInc - 3200000) * 0.30;
-        else tax = 700000 + (annualInc - 4100000) * 0.35;
-      } else {
-        if (annualInc <= 600000) tax = 0;
-        else if (annualInc <= 1200000) tax = (annualInc - 600000) * 0.15;
-        else if (annualInc <= 1600000) tax = 90000 + (annualInc - 1200000) * 0.20;
-        else if (annualInc <= 3200000) tax = 170000 + (annualInc - 1600000) * 0.30;
-        else tax = 650000 + (annualInc - 3200000) * 0.35;
-      }
-
-      const avgTaxRate = annualInc > 0 ? (tax / annualInc) : 0;
-      const taxSaved = eligibleInv * avgTaxRate;
-      const effectiveCost = proposedInv - taxSaved;
-      const savingsPct = proposedInv > 0 ? (taxSaved / proposedInv) * 100 : 0;
-
-      const years = parseInt(document.getElementById('investYears').value) || 15;
-      const returnRate = (parseFloat(document.getElementById('expectedReturn').value) || 13) / 100;
-      
-      let futureVal = 0;
-      for (let i = 1; i <= years; i++) {
-        futureVal = (futureVal + proposedInv) * (1 + returnRate);
-      }
-
-      document.getElementById('resTaxBefore').innerText = 'PKR ' + Math.round(tax).toLocaleString();
-      document.getElementById('resTaxSaved').innerText = 'PKR ' + Math.round(taxSaved).toLocaleString();
-      document.getElementById('resMaxAllowed').innerText = 'PKR ' + Math.round(maxEligible).toLocaleString();
-      document.getElementById('resEffectiveCost').innerText = 'PKR ' + Math.round(effectiveCost).toLocaleString();
-      document.getElementById('resSavingsPct').innerText = savingsPct.toFixed(1) + '%';
-      
-      document.getElementById('resFutureCorpus').innerText = 'PKR ' + Math.round(futureVal).toLocaleString();
-      document.getElementById('resTaxFreeCash').innerText = 'PKR ' + Math.round(futureVal * 0.50).toLocaleString();
-      document.getElementById('resAnnualCompText').innerText = proposedInv.toLocaleString();
-      document.getElementById('resYearsText').innerText = years;
-      document.getElementById('resReturnText').innerText = (returnRate * 100);
-    }
-
     // Reference Table Switch
     function switchTable(tab) {
       const tabSalaried = document.getElementById('tabSalariedBtn');
@@ -1321,8 +1009,6 @@
 
     window.onload = function() {
       $('.select2-init').select2({ width: '100%', minimumResultsForSearch: Infinity });
-      calculateQuickTax();
-      updateCalculator();
     };
   </script>
 </body></html>
