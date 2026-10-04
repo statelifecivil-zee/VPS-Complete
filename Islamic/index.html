@@ -239,6 +239,28 @@
       .sl-quicklink:hover,.sl-quicklink:focus-visible{transform:translateX(-4px);}
     }
     @media (prefers-reduced-motion:reduce){.sl-quicklink,.sl-quicklink-icon{transition:none;}.sl-quicklink:hover,.sl-quicklink:focus-visible{transform:none;}}
+
+    /* Gold Invest button (style grabbed from supplied file) */
+    .btn-gold{background:linear-gradient(180deg,#fcd34d 0%,#d97706 100%);border:1px solid #fef08a;box-shadow:0 6px 20px rgba(217,119,6,.4),inset 0 1px 2px rgba(255,255,255,.7);transition:all .25s ease;}
+    .btn-gold:hover{background:linear-gradient(180deg,#fde68a 0%,#b45309 100%);box-shadow:0 8px 26px rgba(245,158,11,.6),inset 0 1px 3px rgba(255,255,255,.9);transform:translateY(-2px);color:#0B2240;}
+    .btn-gold .sl-arr{transition:transform .25s ease;}
+    .btn-gold:hover .sl-arr{transform:translateX(4px);}
+    /* Floating crescent moon + twinkling stars */
+    @keyframes floatCrescent{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-12px) rotate(1.2deg);}}
+    @keyframes twinkleStar{0%,100%{opacity:.35;transform:scale(.9);}50%{opacity:1;transform:scale(1.15);filter:drop-shadow(0 0 6px rgba(255,225,120,.9));}}
+    .animate-float{animation:floatCrescent 6s ease-in-out infinite;}
+    .star-twinkle-1{animation:twinkleStar 3.2s ease-in-out infinite;}
+    .star-twinkle-2{animation:twinkleStar 4.1s ease-in-out 1s infinite;}
+    .star-twinkle-3{animation:twinkleStar 2.7s ease-in-out .5s infinite;}
+    .sl-moon-wrap{position:relative;width:100%;max-width:380px;height:380px;margin:0 auto;display:flex;align-items:center;justify-content:center;}
+    .sl-moon-glow{position:absolute;inset:0;background:rgba(251,191,36,.10);border-radius:50%;filter:blur(40px);transform:scale(.9);}
+    .sl-star{position:absolute;}
+    .sl-star-1{top:8px;right:40px;}
+    .sl-star-2{bottom:48px;left:24px;}
+    .sl-star-3{top:96px;right:16px;}
+    .sl-geo-star-1{position:absolute;top:-12px;right:64px;width:56px;height:56px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));}
+    .sl-geo-star-2{position:absolute;bottom:24px;right:8px;width:44px;height:44px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));}
+    @media (prefers-reduced-motion:reduce){.animate-float,.star-twinkle-1,.star-twinkle-2,.star-twinkle-3{animation:none;}}
   </style>
 </head>
 <body class="sl-bg-gray-50 sl-text-gray-800">
@@ -312,13 +334,102 @@
 </div>
 <!-- Invest & Discuss Buttons -->
 <div class="d-flex flex-wrap gap-3 pt-3">
-<a class="fw-bold px-5 py-3 rounded-pill text-decoration-none d-inline-flex align-items-center gap-2 shadow" style="background: linear-gradient(135deg, #F3AD12 0%, #D4AF37 50%, #B8860B 100%); color: #0B2240;" href="https://itmindsuat.cdcaccess.com.pk/slic/invLogin.xhtml" target="_blank" rel="noopener noreferrer">
-<i class="bi bi-box-arrow-in-right"></i> Invest Now <i class="bi bi-arrow-right"></i>
+<a class="btn-gold fw-bold px-5 py-3 rounded-pill text-decoration-none d-inline-flex align-items-center gap-2" style="color: #0B2240;" href="https://itmindsuat.cdcaccess.com.pk/slic/invLogin.xhtml" target="_blank" rel="noopener noreferrer">
+Invest Now <i class="bi bi-arrow-right sl-arr"></i>
 </a>
 <a class="fw-semibold px-5 py-3 rounded-pill text-decoration-none d-inline-flex align-items-center gap-2 text-white border border-white" style="border-width: 2px !important;" href="https://www.statelife.com.pk/en/registercomplaint" target="_blank" rel="noopener noreferrer">
 Discuss
 </a>
 </div>
+</div>
+</div>
+<div class="col-12 col-lg-5">
+<div class="sl-moon-wrap animate-float">
+<div class="sl-moon-glow"></div>
+<div class="sl-star sl-star-1 star-twinkle-1"><svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="#fcd34d"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"/></svg></div>
+<div class="sl-star sl-star-2 star-twinkle-2"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="#fde68a"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"/></svg></div>
+<div class="sl-star sl-star-3 star-twinkle-3"><svg style="width:12px;height:12px;" viewBox="0 0 24 24" fill="#fef08a"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"/></svg></div>
+<!-- 3D Vector Islamic Filigree Crescent Moon -->
+        <svg style="width:100%;height:100%;filter:drop-shadow(0 15px 30px rgba(0,0,0,0.65));" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- 3D Gold Gradient Definitions -->
+            <radialGradient id="goldRadial3D" cx="45%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#fff8db" />
+              <stop offset="25%" stop-color="#fed771" />
+              <stop offset="60%" stop-color="#d97706" />
+              <stop offset="90%" stop-color="#92400e" />
+              <stop offset="100%" stop-color="#451a03" />
+            </radialGradient>
+
+            <linearGradient id="goldBevel" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8" />
+              <stop offset="40%" stop-color="#fbbf24" />
+              <stop offset="85%" stop-color="#78350f" />
+              <stop offset="100%" stop-color="#1e1005" />
+            </linearGradient>
+
+            <linearGradient id="innerGlow" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a" />
+              <stop offset="100%" stop-color="#b45309" />
+            </linearGradient>
+
+            <!-- Islamic Arabesque Mask Pattern for Carved Filigree -->
+            <pattern id="islamicPattern" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M15,0 L30,15 L15,30 L0,15 Z" fill="none" stroke="#683407" stroke-width="0.7" opacity="0.6"/>
+              <circle cx="15" cy="15" r="5" fill="none" stroke="#fff1b0" stroke-width="0.75" opacity="0.8"/>
+              <path d="M0,0 L30,30 M30,0 L0,30" stroke="#8d490b" stroke-width="0.5" opacity="0.4"/>
+              <circle cx="0" cy="0" r="3" fill="#ffe28a" opacity="0.5"/>
+              <circle cx="30" cy="0" r="3" fill="#ffe28a" opacity="0.5"/>
+              <circle cx="0" cy="30" r="3" fill="#ffe28a" opacity="0.5"/>
+              <circle cx="30" cy="30" r="3" fill="#ffe28a" opacity="0.5"/>
+            </pattern>
+
+            <!-- Clip Path for Inside the Crescent Moon -->
+            <clipPath id="crescentClip">
+              <path d="M210,30 C105,30 20,115 20,220 C20,325 105,410 210,410 C270,410 324,380 355,335 C230,355 125,260 125,180 C125,110 180,48 255,35 C240,32 225,30 210,30 Z" />
+            </clipPath>
+          </defs>
+
+          <!-- Outer 3D Bevel Shadow -->
+          <path d="M212,32 C103,32 15,118 15,224 C15,330 102,416 212,416 C274,416 328,385 360,338 C232,360 120,263 120,182 C120,110 178,47 258,36 C243,33 227,32 212,32 Z" 
+                fill="#2b1403" opacity="0.6" filter="blur(3px)" />
+
+          <!-- Main Crescent 3D Body -->
+          <path d="M210,30 C105,30 20,115 20,220 C20,325 105,410 210,410 C270,410 324,380 355,335 C230,355 125,260 125,180 C125,110 180,48 255,35 C240,32 225,30 210,30 Z" 
+                fill="url(#goldRadial3D)" stroke="url(#goldBevel)" stroke-width="4.5" />
+
+          <!-- Carved Islamic Lattice Pattern Layer -->
+          <g clip-path="url(#crescentClip)">
+            <rect x="0" y="0" width="400" height="400" fill="url(#islamicPattern)" />
+            <!-- Soft inner shadow gradient for bevel illusion -->
+            <path d="M210,30 C105,30 20,115 20,220 C20,325 105,410 210,410 C270,410 324,380 355,335 C230,355 125,260 125,180 C125,110 180,48 255,35 Z" 
+                  fill="url(#innerGlow)" opacity="0.22" style="mix-blend-mode: overlay;" />
+          </g>
+
+          <!-- Subtle Front Bevel Edge Highlight -->
+          <path d="M210,34 C112,34 30,118 30,220 C30,318 112,400 210,400 C264,400 312,374 340,334 C236,346 138,255 138,180 C138,118 188,54 250,38" 
+                fill="none" stroke="#fff6cf" stroke-width="2" opacity="0.65" />
+          
+          <!-- Tip Highlights -->
+          <circle cx="255" cy="35" r="3" fill="#ffffff" filter="drop-shadow(0 0 4px #ffd700)" />
+          <circle cx="355" cy="335" r="3" fill="#ffffff" filter="drop-shadow(0 0 4px #ffd700)" />
+        </svg>
+<div class="sl-geo-star-1"><svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+            <defs>
+              <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff0aa" />
+                <stop offset="100%" stop-color="#b45309" />
+              </linearGradient>
+            </defs>
+            <path d="M50 0 L61 38 L100 50 L61 62 L50 100 L39 62 L0 50 L39 38 Z" fill="url(#starGold)"/>
+            <circle cx="50" cy="50" r="14" fill="#683407" />
+            <circle cx="50" cy="50" r="8" fill="#ffd700" />
+          </svg></div>
+<div class="sl-geo-star-2"><svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+            <path d="M50 0 L61 38 L100 50 L61 62 L50 100 L39 62 L0 50 L39 38 Z" fill="url(#starGold)"/>
+            <circle cx="50" cy="50" r="12" fill="#78350f" />
+            <circle cx="50" cy="50" r="6" fill="#fde68a" />
+          </svg></div>
 </div>
 </div>
 </section>
