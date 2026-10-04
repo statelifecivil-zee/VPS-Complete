@@ -237,6 +237,12 @@
       .sl-quicklink:hover,.sl-quicklink:focus-visible{transform:translateX(-4px);}
     }
     @media (prefers-reduced-motion:reduce){.sl-quicklink,.sl-quicklink-icon{transition:none;}.sl-quicklink:hover,.sl-quicklink:focus-visible{transform:none;}}
+
+    /* Gold Invest button (same style as Islamic page) */
+    .btn-gold{background:linear-gradient(180deg,#fcd34d 0%,#d97706 100%);border:1px solid #fef08a;box-shadow:0 6px 20px rgba(217,119,6,.4),inset 0 1px 2px rgba(255,255,255,.7);transition:all .25s ease;}
+    .btn-gold:hover{background:linear-gradient(180deg,#fde68a 0%,#b45309 100%);box-shadow:0 8px 26px rgba(245,158,11,.6),inset 0 1px 3px rgba(255,255,255,.9);transform:translateY(-2px);color:#0B2240;}
+    .btn-gold .sl-arr{transition:transform .25s ease;}
+    .btn-gold:hover .sl-arr{transform:translateX(4px);}
   </style>
 </head>
 <body class="sl-bg-gray-50 sl-text-gray-800">
@@ -310,8 +316,8 @@
 </div>
 <!-- Invest & Discuss Buttons -->
 <div class="d-flex flex-wrap gap-3 pt-3">
-<a class="fw-bold px-5 py-3 rounded-pill text-decoration-none d-inline-flex align-items-center gap-2 shadow" style="background: linear-gradient(135deg, #F3AD12 0%, #D4AF37 50%, #B8860B 100%); color: #0B2240; padding: 1.1rem 2.75rem; font-size: 1.2rem;" href="https://itmindsuat.cdcaccess.com.pk/slic/invLogin.xhtml" target="_blank" rel="noopener noreferrer">
-<i class="bi bi-box-arrow-in-right"></i> Invest Now <i class="bi bi-arrow-right"></i>
+<a class="btn-gold fw-bold rounded-pill text-decoration-none d-inline-flex align-items-center gap-2" style="color: #0B2240; padding: 1.1rem 2.75rem; font-size: 1.2rem;" href="https://itmindsuat.cdcaccess.com.pk/slic/invLogin.xhtml" target="_blank" rel="noopener noreferrer">
+Invest Now <i class="bi bi-arrow-right sl-arr"></i>
 </a>
 <a class="fw-semibold rounded-pill text-decoration-none d-inline-flex align-items-center gap-2 text-white border border-white" style="border-width: 2px !important; padding: 1.1rem 2.75rem; font-size: 1.2rem;" href="https://www.statelife.com.pk/en/registercomplaint" target="_blank" rel="noopener noreferrer">
 Discuss
