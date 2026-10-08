@@ -5,7 +5,11 @@
     { "source": "/ipf/:path*", "destination": "/Islamic/:path*", "permanent": true },
     { "source": "/cpf", "destination": "/Conventional", "permanent": true },
     { "source": "/cpf/:path*", "destination": "/Conventional/:path*", "permanent": true },
-    { "source": "/Islamic/docs/Forms/Form%20Files/A_Forms.html", "destination": "/Islamic/docs/Forms/Form%20Files/Downloads.html", "permanent": true },
-    { "source": "/Islamic/docs/Forms/Form%20Files/A_Forms", "destination": "/Islamic/docs/Forms/Form%20Files/Downloads", "permanent": true }
+    { "source": "/Islamic/nav", "destination": "/floating_panel/fund_price/nav", "permanent": true },
+    { "source": "/Islamic/FMR", "destination": "/floating_panel/fund_management_report/FMR", "permanent": true },
+    { "source": "/Islamic/docs/Forms/Form%20Files/Downloads", "destination": "/floating_panel/downloads/download", "permanent": true },
+    { "source": "/Islamic/docs/Forms/Form%20Files/A_Forms", "destination": "/floating_panel/downloads/download", "permanent": true },
+    { "source": "/Islamic/docs/Forms/Form%20Files/A_Forms.html", "destination": "/floating_panel/downloads/download.html", "permanent": true },
+    { "source": "/Calculators/VPS-CAL", "destination": "/floating_panel/calculators/VPS-CAL", "permanent": true }
   ]
 }
