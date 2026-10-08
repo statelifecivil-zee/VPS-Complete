@@ -308,7 +308,7 @@
 <main class="py-5 bg-white">
 <div class="container">
 <div class="text-center mb-4">
-<h2 class="fw-bold mb-0" style="color: #0B2240;">Forms</h2>
+<h2 class="fw-bold mb-0" style="color: #0B2240;">Investor Forms</h2>
 <div class="mx-auto mt-2 rounded-pill" style="width: 3rem; height: 4px; background: #0052CC;"></div>
 </div>
 <div class="fmr-grid" id="formsGrid"></div>
@@ -446,7 +446,7 @@ const DOCS_SLIRSF = [
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
   document.getElementById("formsGrid").innerHTML = FORMS.map(f => `
     <div class="fmr-item">
-      <span class="fmr-badge"><i class="bi bi-file-earmark-pdf-fill" aria-hidden="true"></i>PDF</span>
+      <span class="fmr-badge"><i class="bi bi-file-earmark-text" aria-hidden="true"></i>PDF</span>
       <h2>${esc(f.title)}</h2>
       <p class="fmr-desc">${esc(f.desc)}</p>
       <hr/>
