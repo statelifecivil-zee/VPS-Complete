@@ -238,6 +238,8 @@
     .inv-dl{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.85rem 1rem;border-radius:8px;background:#0052CC;color:#fff;font-weight:700;font-size:.95rem;text-decoration:none;transition:filter .2s ease,transform .2s ease;}
     .inv-dl:hover{color:#fff;filter:brightness(1.08);transform:translateY(-1px);}
     .inv-dl:focus-visible{outline:3px solid #F3AD12;outline-offset:2px;}
+    .section-card{background:#fff;border:1px solid #E5E9F0;border-radius:20px;padding:2.5rem 2.5rem 2.75rem;box-shadow:0 4px 24px rgba(15,42,90,.06);}
+    @media(max-width:576px){.section-card{padding:1.5rem 1.25rem 1.75rem;}}
     @media (max-width:1199.98px){.inv-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
     @media (max-width:767.98px){.inv-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;}.inv-card{padding:1.25rem;}}
     @media (max-width:479.98px){.inv-grid{grid-template-columns:1fr;}}
@@ -307,29 +309,35 @@
 <!-- FORMS -->
 <main class="py-5 bg-white">
 <div class="container">
+<div class="section-card">
 <div class="text-center mb-4">
 <h2 class="fw-bold mb-0" style="color: #0B2240;">Investor Forms</h2>
 <div class="mx-auto mt-2 rounded-pill" style="width: 3rem; height: 4px; background: #0052CC;"></div>
 </div>
 <div class="fmr-grid" id="formsGrid"></div>
 </div>
+</div>
 </main>
 <!-- INVESTOR DOCUMENTS: CONVENTIONAL VPS -->
 <section class="py-5" style="background: #FFFFFF;">
 <div class="container">
+<div class="section-card">
 <div class="mb-4">
 <h2 class="fw-bold mb-0" style="color: #0B2240;">Investor Documents — State Life Retirement Savings Fund (SLRSF)</h2>
 </div>
 <div class="inv-grid" id="slrsfGrid"></div>
 </div>
+</div>
 </section>
 <!-- INVESTOR DOCUMENTS: ISLAMIC VPS -->
 <section class="py-5" style="background: #F0F4FA;">
 <div class="container">
+<div class="section-card">
 <div class="mb-4">
 <h2 class="fw-bold mb-0" style="color: #0B2240;">Investor Documents — State Life Islamic Retirement Savings Fund (SLIRSF)</h2>
 </div>
 <div class="inv-grid" id="slirsfGrid"></div>
+</div>
 </div>
 </section>
 <!-- OFFICIAL FOOTER -->
