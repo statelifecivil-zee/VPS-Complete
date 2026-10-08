@@ -261,9 +261,11 @@
     .sl-geo-star-1{position:absolute;top:-12px;right:64px;width:56px;height:56px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));}
     .sl-geo-star-2{position:absolute;bottom:24px;right:8px;width:44px;height:44px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));}
     @media (prefers-reduced-motion:reduce){.animate-float,.star-twinkle-1,.star-twinkle-2,.star-twinkle-3{animation:none;}}
-  </style>
-<style>
-/* ===== Complimentary Benefits panel (hero) ===== */
+      .sl-moon-inline{position:absolute;width:360px;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;opacity:.2;}
+    .sl-moon-inline .sl-moon-wrap{height:360px;max-width:360px;margin:0;}
+    .sl-hero-text{position:relative;z-index:1;}
+    @media (min-width:1200px) and (max-width:1399.98px){.sl-hero-benefits-col{padding-right:12rem;}}
+    /* ===== Complimentary Benefits panel (hero) ===== */
     .sl-ben-card{position:relative;overflow:hidden;padding:2rem;border-radius:1.25rem;background:linear-gradient(180deg,#0d47a1 0%,#072a6c 100%);border:1px solid rgba(255,255,255,0.15);box-shadow:0 20px 50px rgba(2,12,35,.35),inset 0 1px 0 rgba(255,255,255,.12);}
     .sl-ben-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#FFB800,#FFD65A,#00A3E0);}
     .sl-ben-card::after{content:"";position:absolute;top:-80px;right:-80px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(0,163,224,.35),transparent 70%);pointer-events:none;}
@@ -281,13 +283,7 @@
     .sl-ben-coverage{display:inline-flex;flex-direction:column;align-items:flex-end;padding:.45rem 1rem;border-radius:999px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,213,79,.55);color:#fff;line-height:1.1;}
     .sl-ben-coverage-label{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;}
     .sl-ben-coverage-amt{font-size:1rem;font-weight:700;color:#fff;margin-top:.15rem;}
-/* Hero benefits panel: keep clear of the fixed quick-links sidebar on mid-size screens */
-@media (min-width:1200px) and (max-width:1399.98px){.sl-hero-benefits-col{padding-right:12rem;}}
-/* Faded crescent moon backdrop behind hero text (Islamic page) */
-.sl-moon-bg{position:absolute;left:2%;top:50%;transform:translateY(-50%);width:640px;max-width:75vw;opacity:.35;pointer-events:none;z-index:0;}
-.sl-moon-bg .sl-moon-wrap{width:100%;max-width:none;height:auto;aspect-ratio:1/1;margin:0;}
-@media (max-width:991.98px){.sl-moon-bg{left:50%;transform:translate(-50%,-50%);width:520px;max-width:92vw;opacity:.22;}}
-</style>
+  </style>
 </head>
 <body class="sl-bg-gray-50 sl-text-gray-800">
 <!-- FLOATING QUICK-LINKS SIDEBAR (RHS) -->
@@ -331,12 +327,30 @@
 <!-- HERO SECTION -->
 <section class="position-relative slic-pattern text-white sl-py-16 sl-lg-py-24 overflow-hidden sl-border-b-4 sl-border-slic-light">
 <div class="sl-grad-slic-dark-slic-primary95-slic-dark90 position-absolute sl-inset-0"></div>
-<div class="sl-moon-bg" aria-hidden="true">
-<div class="sl-moon-wrap animate-float">
+<div class="container position-relative">
+<div class="row g-5 align-items-center">
+<div class="col-12 col-lg-6 position-relative">
+<div class="sl-moon-inline"><div class="sl-moon-wrap animate-float">
 <div class="sl-moon-glow"></div>
 <div class="sl-star sl-star-1 star-twinkle-1"><svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="#fcd34d"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"/></svg></div>
 <div class="sl-star sl-star-2 star-twinkle-2"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="#fde68a"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"/></svg></div>
 <div class="sl-star sl-star-3 star-twinkle-3"><svg style="width:12px;height:12px;" viewBox="0 0 24 24" fill="#fef08a"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"/></svg></div>
+<div class="sl-geo-star-1"><svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+            <defs>
+              <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff0aa" />
+                <stop offset="100%" stop-color="#b45309" />
+              </linearGradient>
+            </defs>
+            <path d="M50 0 L61 38 L100 50 L61 62 L50 100 L39 62 L0 50 L39 38 Z" fill="url(#starGold)"/>
+            <circle cx="50" cy="50" r="14" fill="#683407" />
+            <circle cx="50" cy="50" r="8" fill="#ffd700" />
+          </svg></div>
+<div class="sl-geo-star-2"><svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+            <path d="M50 0 L61 38 L100 50 L61 62 L50 100 L39 62 L0 50 L39 38 Z" fill="url(#starGold)"/>
+            <circle cx="50" cy="50" r="12" fill="#78350f" />
+            <circle cx="50" cy="50" r="6" fill="#fde68a" />
+          </svg></div>
 <!-- 3D Vector Islamic Filigree Crescent Moon -->
         <svg style="width:100%;height:100%;filter:drop-shadow(0 15px 30px rgba(0,0,0,0.65));" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -402,27 +416,8 @@
           <circle cx="255" cy="35" r="3" fill="#ffffff" filter="drop-shadow(0 0 4px #ffd700)" />
           <circle cx="355" cy="335" r="3" fill="#ffffff" filter="drop-shadow(0 0 4px #ffd700)" />
         </svg>
-<div class="sl-geo-star-1"><svg viewBox="0 0 100 100" style="width:100%;height:100%;">
-            <defs>
-              <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fff0aa" />
-                <stop offset="100%" stop-color="#b45309" />
-              </linearGradient>
-            </defs>
-            <path d="M50 0 L61 38 L100 50 L61 62 L50 100 L39 62 L0 50 L39 38 Z" fill="url(#starGold)"/>
-            <circle cx="50" cy="50" r="14" fill="#683407" />
-            <circle cx="50" cy="50" r="8" fill="#ffd700" />
-          </svg></div>
-<div class="sl-geo-star-2"><svg viewBox="0 0 100 100" style="width:100%;height:100%;">
-            <path d="M50 0 L61 38 L100 50 L61 62 L50 100 L39 62 L0 50 L39 38 Z" fill="url(#starGold)"/>
-            <circle cx="50" cy="50" r="12" fill="#78350f" />
-            <circle cx="50" cy="50" r="6" fill="#fde68a" />
-          </svg></div>
-</div>
-</div>
-<div class="container position-relative">
-<div class="row g-5 align-items-center">
-<div class="col-12 col-lg-6"><div class="sl-space-y-6">
+</div></div>
+<div class="sl-space-y-6 position-relative sl-hero-text">
 <div class="d-inline-flex align-items-center gap-2 sl-bg-slic-light-20 border sl-border-slic-light sl-text-cyan-200 px-3 py-1 rounded-pill sl-text-xs fw-bold sl-tracking-wide text-uppercase">
 <i class="bi bi-moon-stars-fill sl-text-slic-gold"></i> Shariah Compliant
           </div>
@@ -491,6 +486,7 @@ Discuss
 </ul>
 </div>
 </div>
+
 </section>
 <!-- KEY STATS STRIP -->
 <section class="sl-bg-slic-dark text-white py-4 border-bottom sl-border-slic-light-30">
