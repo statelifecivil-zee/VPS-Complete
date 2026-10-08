@@ -64,10 +64,6 @@
         .ann-scope .table-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .ann-scope .table-container::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-        .agt-scope { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .agt-scope .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
-        .agt-scope .scrollbar-thin::-webkit-scrollbar-track { background: #f1f5f9; }
-        .agt-scope .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 
         @media (max-width: 768px) {
             .vps-scope .grid-layout { grid-template-columns: 1fr; }
@@ -114,7 +110,6 @@
                     <button onclick="routerSwitchView('benefit')" id="pill-btn-benefit" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Benefit</button>
                     <button onclick="routerSwitchView('rebate')" id="pill-btn-rebate" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Tax Rebate</button>
                     <button onclick="routerSwitchView('annuity')" id="pill-btn-annuity" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Annuity</button>
-                    <button onclick="routerSwitchView('commission')" id="pill-btn-commission" class="text-[11px] text-slate-600 hover:text-slate-900 font-bold py-1.5 px-3 rounded-lg transition-all">Commission</button>
                 </div>
             </div>
         </nav>
@@ -141,7 +136,7 @@
                     </div>
 
                     <!-- Clean minimalist cards grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
                         
                         <!-- CARD 1: Benefit Calculator -->
                         <div onclick="routerSwitchView('benefit')" class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-sky-500 rounded-3xl p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transform hover:-translate-y-1.5 transition-all duration-300 shadow-md hover:shadow-xl min-h-[180px]">
@@ -226,23 +221,6 @@
                             </div>
                         </div>
 
-                        <!-- CARD 4: Agent Commission Calculator -->
-                        <div onclick="routerSwitchView('commission')" class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-indigo-500 rounded-3xl p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transform hover:-translate-y-1.5 transition-all duration-300 shadow-md hover:shadow-xl min-h-[180px]">
-                            <!-- Floating Action: Open in New Tab -->
-                            <button onclick="event.stopPropagation(); openInNewTab('commission')" class="absolute top-4 right-4 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-sm" title="Open this calculator in a new tab">
-                                <i data-lucide="external-link" class="w-4 h-4 text-indigo-600"></i>
-                            </button>
-                            <div class="w-16 h-16 flex items-center justify-center bg-indigo-50/80 rounded-2xl border border-indigo-100 group-hover:scale-105 transition-all mt-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-12 h-12">
-                                    <rect x="18" y="55" width="8" height="25" rx="1" fill="url(#shBlue)" /><rect x="32" y="40" width="8" height="40" rx="1" fill="url(#shBlue)" /><rect x="46" y="28" width="8" height="52" rx="1" fill="url(#shBlue)" />
-                                    <path d="M12 70 L22 60 L36 45 L50 32 L68 18" fill="none" stroke="#651FFF" stroke-width="3" />
-                                    <ellipse cx="68" cy="72" rx="10" ry="4" fill="url(#shGold)" />
-                                </svg>
-                            </div>
-                            <div class="space-y-1">
-                                <h3 class="text-sm font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Agent Commission Calculator</h3>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -583,260 +561,6 @@
                 </div>
             </section>
 
-            <!-- BLOCK 4: STATE LIFE AGENT COMMISSION CALCULATOR MODULE -->
-            <section id="agent-commission-scope-view" class="hidden py-8 px-4 md:px-8 bg-slate-50 min-h-screen">
-                <div class="agt-scope max-w-7xl mx-auto space-y-8">
-                    
-                    <header class="mb-8 flex flex-row items-center justify-center border-b border-slate-200 pb-6 w-full gap-4 md:gap-6">
-                        <div class="flex-shrink-0">
-                            <svg viewBox="0 0 150 150" class="w-16 h-16 md:w-20 md:h-20">
-                                <use href="#sld-logo-vector" />
-                            </svg>
-                        </div>
-                        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight text-left">Sales Agent Commission Calculator</h1>
-                    </header>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        
-                        <!-- Left Layout (5/12) -->
-                        <div class="lg:col-span-5 space-y-6">
-                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                                <h2 class="text-xl font-bold mb-5 flex items-center text-slate-900">
-                                    <i data-lucide="briefcase" class="w-5 h-5 mr-2 text-indigo-600"></i> Assets & Contributions Setup
-                                </h2>
-
-                                <div class="space-y-5">
-                                    <!-- Equity segment -->
-                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3 hover:border-purple-200 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <span class="flex items-center font-bold text-slate-800 text-sm">
-                                                <i data-lucide="activity" class="w-4 h-4 mr-1.5 text-purple-600"></i> Equity Sub Fund
-                                            </span>
-                                            <span class="text-[10px] font-bold bg-purple-100 text-purple-700 px-2.5 py-0.5 rounded-full">2.50% Fee</span>
-                                        </div>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            <div>
-                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Initial AUM</label>
-                                                <div class="relative">
-                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
-                                                    <input type="text" id="agt-equity-aum" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Annual Contribution</label>
-                                                <div class="relative">
-                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
-                                                    <input type="text" id="agt-equity-contrib" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Debt segment -->
-                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3 hover:border-amber-200 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <span class="flex items-center font-bold text-slate-800 text-sm">
-                                                <i data-lucide="trending-up" class="w-4 h-4 mr-1.5 text-amber-600"></i> Debt Sub Fund
-                                            </span>
-                                            <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full">1.25% Fee</span>
-                                        </div>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            <div>
-                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Initial AUM</label>
-                                                <div class="relative">
-                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
-                                                    <input type="text" id="agt-debt-aum" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Annual Contribution</label>
-                                                <div class="relative">
-                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
-                                                    <input type="text" id="agt-debt-contrib" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- MM segment -->
-                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3 hover:border-emerald-200 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <span class="flex items-center font-bold text-slate-800 text-sm">
-                                                <i data-lucide="landmark" class="w-4 h-4 mr-1.5 text-emerald-600"></i> Money Market Fund
-                                            </span>
-                                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full">1.00% Fee</span>
-                                        </div>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            <div>
-                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Initial AUM</label>
-                                                <div class="relative">
-                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
-                                                    <input type="text" id="agt-mm-aum" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Annual Contribution</label>
-                                                <div class="relative">
-                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-xs">Rs</span></div>
-                                                    <input type="text" id="agt-mm-contrib" value="100,000" placeholder="0" class="block w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm bg-white outline-none font-medium">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-6 pt-5 border-t border-slate-100 space-y-2.5">
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-slate-500 font-medium">Initial Total AUM</span>
-                                        <span id="agt-lbl-initial-aum" class="font-bold text-slate-900 text-base">Rs. 0</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-slate-500 font-medium">Total Annual Contribution</span>
-                                        <span id="agt-lbl-total-contrib" class="font-bold text-indigo-600 text-base">Rs. 0</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                                <h2 class="text-xl font-bold mb-5 flex items-center text-slate-900">
-                                    <i data-lucide="line-chart" class="w-5 h-5 mr-2 text-indigo-600"></i> Growth Projections
-                                </h2>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-medium text-slate-700 mb-1.5">Number of Years</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i data-lucide="calendar" class="h-4 w-4 text-slate-400"></i></div>
-                                            <input type="number" id="agt-projection-years" min="1" max="40" value="10" oninput="ModuleAgentCommission.calculateAndRender()" class="block w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm font-semibold outline-none">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-medium text-slate-700 mb-1.5">Expected Annual Return</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none"><span class="text-slate-400 font-bold text-sm">%</span></div>
-                                            <input type="number" id="agt-projection-rate" value="10" oninput="ModuleAgentCommission.calculateAndRender()" class="block w-full pl-3.5 pr-8 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm font-semibold outline-none">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right Layout (7/12) -->
-                        <div class="lg:col-span-7 space-y-6">
-                            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl shadow-xl p-1 overflow-hidden relative">
-                                <div class="absolute top-0 right-0 -mt-6 -mr-6 w-32 h-32 bg-indigo-500 rounded-full opacity-25 blur-2xl"></div>
-                                <div class="absolute bottom-0 left-0 -mb-6 -ml-6 w-32 h-32 bg-emerald-500 rounded-full opacity-25 blur-2xl"></div>
-                                
-                                <div class="bg-slate-900/40 backdrop-blur-md rounded-[22px] p-6 md:p-8 relative z-10 text-white border border-slate-700/40">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Total Sales Agent Commission</h3>
-                                        <span id="agt-badge-years-summary" class="bg-indigo-500/20 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30">Cumulative</span>
-                                    </div>
-                                    <div class="flex items-baseline space-x-2">
-                                        <span id="agt-val-cumulative-commission" class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Rs. 0</span>
-                                    </div>
-                                    <div class="mt-6 pt-6 border-t border-slate-700/60 grid grid-cols-2 gap-4">
-                                        <div>
-                                            <p class="text-xs text-slate-400 font-medium">Avg. Annual Commission</p>
-                                            <p id="agt-val-avg-annual-commission" class="text-lg md:text-xl font-bold text-slate-100">Rs. 0</p>
-                                        </div>
-                                        <div class="text-right">
-                                            <p class="text-xs text-slate-400 font-medium">Total Mgmt Fee (Cum.)</p>
-                                            <p id="agt-val-total-mgmt-fee" class="text-lg md:text-xl font-bold text-slate-100">Rs. 0</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 overflow-hidden">
-                                <h3 class="text-lg font-bold mb-5 flex items-center text-slate-900">
-                                    <i data-lucide="pie-chart" class="w-5 h-5 mr-2 text-slate-500"></i> Management Fee Breakdown (Cumulative)
-                                </h3>
-                                <div class="space-y-4">
-                                    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100/50 transition-colors">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-2.5 h-10 rounded bg-purple-500"></div>
-                                            <div><p class="font-bold text-slate-800 text-sm">Equity Sub Fund</p><p class="text-[11px] text-slate-500">2.5% of AUM</p></div>
-                                        </div>
-                                        <div class="text-right"><p id="agt-fee-equity-cumulative" class="font-extrabold text-slate-900 text-sm md:text-base">Rs. 0</p><p id="agt-fee-equity-annual-avg" class="text-[10px] font-medium text-slate-500">Rs. 0 / yr avg</p></div>
-                                    </div>
-                                    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100/50 transition-colors">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-2.5 h-10 rounded bg-amber-500"></div>
-                                            <div><p class="font-bold text-slate-800 text-sm">Debt Sub Fund</p><p class="text-[11px] text-slate-500">1.25% of AUM</p></div>
-                                        </div>
-                                        <div class="text-right"><p id="agt-fee-debt-cumulative" class="font-extrabold text-slate-900 text-sm md:text-base">Rs. 0</p><p id="agt-fee-debt-annual-avg" class="text-[10px] font-medium text-slate-500">Rs. 0 / yr avg</p></div>
-                                    </div>
-                                    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100/50 transition-colors">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-2.5 h-10 rounded bg-emerald-500"></div>
-                                            <div><p class="font-bold text-slate-800 text-sm">Money Market Fund</p><p class="text-[11px] text-slate-500">1.00% of AUM</p></div>
-                                        </div>
-                                        <div class="text-right"><p id="agt-fee-mm-cumulative" class="font-extrabold text-slate-900 text-sm md:text-base">Rs. 0</p><p id="agt-fee-mm-annual-avg" class="text-[10px] font-medium text-slate-500">Rs. 0 / yr avg</p></div>
-                                    </div>
-                                </div>
-
-                                <div class="mt-5 pt-5 border-t border-slate-100 space-y-3 px-1">
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-slate-600 font-bold flex items-center"><i data-lucide="layers" class="w-4.5 h-4.5 mr-2 text-slate-400"></i>Total Management Fee</span>
-                                        <span id="agt-fee-total-mgmt" class="font-extrabold text-slate-900 text-[15px]">Rs. 0</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-slate-600 font-bold flex items-center"><i data-lucide="award" class="w-4.5 h-4.5 mr-2 text-indigo-500"></i>Sales Agent Commission (10%)</span>
-                                        <span id="agt-fee-total-commission" class="font-extrabold text-indigo-600 text-[15px]">Rs. 0</span>
-                                    </div>
-                                </div>
-                                <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row justify-between sm:items-center bg-slate-50 -mx-6 -mb-6 p-6 gap-3">
-                                    <span class="text-slate-600 font-bold flex items-center text-sm"><i data-lucide="percent" class="w-4.5 h-4.5 mr-2 text-indigo-500"></i>Weighted Average Management Fee</span>
-                                    <span id="agt-val-weighted-average" class="font-extrabold text-slate-900 text-base md:text-lg bg-indigo-50 text-indigo-700 px-3.5 py-1.5 rounded-xl border border-indigo-100 shadow-sm">0.000%</span>
-                                </div>
-                            </div>
-
-                            <div class="flex bg-slate-200/60 p-1.5 rounded-2xl border border-slate-200/40 w-full max-w-sm sm:max-w-md">
-                                <button id="agt-toggle-table-btn" class="flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all bg-white text-slate-900 shadow-md"><i data-lucide="table-properties" class="w-4.5 h-4.5"></i><span>Commission Table</span></button>
-                                <button id="agt-toggle-chart-btn" class="flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all text-slate-500 hover:text-slate-800"><i data-lucide="area-chart" class="w-4.5 h-4.5"></i><span>Growth Curve</span></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Projections Visualization Blocks -->
-                    <div class="pt-4">
-                        <div id="agt-table-container-view" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 w-full">
-                            <div class="p-6 border-b border-slate-100"><h3 class="text-lg font-bold flex items-center text-slate-900"><i data-lucide="calendar-clock" class="w-5 h-5 mr-2 text-slate-500"></i>Compounded Projections Table</h3></div>
-                            <div class="overflow-x-auto w-full">
-                                <table class="w-full text-left border-collapse min-w-[950px]">
-                                    <thead>
-                                        <tr class="bg-slate-50 text-slate-500 text-[10px] md:text-xs uppercase tracking-wider border-b border-slate-200">
-                                            <th class="p-4 font-bold">Year End</th>
-                                            <th class="p-4 font-bold text-right">Opening Balance</th>
-                                            <th class="p-4 font-bold text-right">Annual Growth</th>
-                                            <th class="p-4 font-bold text-right">Annual Contribution</th>
-                                            <th class="p-4 font-bold text-right">Closing Balance</th>
-                                            <th class="p-4 font-bold text-right">Annual Commission (10% of Fee)</th>
-                                            <th class="p-4 font-bold text-right">Cumulative Commission</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="agt-projection-table-body" class="divide-y divide-slate-100 text-xs md:text-sm"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="agt-chart-container-view" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6 transition-all duration-300 w-full">
-                            <div id="agt-chart-container-active" class="space-y-6">
-                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-                                    <h3 class="text-lg font-bold flex items-center text-indigo-600"><i data-lucide="line-chart" class="w-5 h-5 mr-2"></i>Commission Growth Curve</h3>
-                                </div>
-                                <div class="w-full h-96 relative bg-slate-50 rounded-xl p-4 border border-slate-100 overflow-hidden">
-                                    <svg id="agt-svg-chart" class="w-full h-full overflow-visible" preserveAspectRatio="none"></svg>
-                                </div>
-                            </div>
-                            <div id="agt-chart-container-inactive" class="hidden flex flex-col items-center justify-center py-16 text-center text-slate-400">
-                                <i data-lucide="area-chart" class="w-12 h-12 mb-3 text-slate-300 animate-pulse"></i>
-                                <p class="text-sm font-semibold text-slate-500">Growth curve requires a projection of 2 or more years.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
         </main>
 
@@ -871,7 +595,6 @@
             document.getElementById('benefit-calc-scope-view').classList.add('hidden');
             document.getElementById('tax-rebate-scope-view').classList.add('hidden');
             document.getElementById('annuity-scope-view').classList.add('hidden');
-            document.getElementById('agent-commission-scope-view').classList.add('hidden');
 
             const navBar = document.getElementById('global-nav-bar');
             const body = document.body;
@@ -884,7 +607,7 @@
                 navBar.classList.remove('hidden');
                 body.className = "bg-slate-50 text-slate-800";
 
-                const items = ['benefit', 'rebate', 'annuity', 'commission'];
+                const items = ['benefit', 'rebate', 'annuity'];
                 items.forEach(i => {
                     const btn = document.getElementById(`pill-btn-${i}`);
                     if (i === viewId) {
@@ -903,9 +626,6 @@
                 } else if (viewId === 'annuity') {
                     document.getElementById('annuity-scope-view').classList.remove('hidden');
                     ModuleAnnuity.executePlanSwitch();
-                } else if (viewId === 'commission') {
-                    document.getElementById('agent-commission-scope-view').classList.remove('hidden');
-                    ModuleAgentCommission.calculateAndRender();
                 }
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1269,167 +989,6 @@
             }
         };
 
-        // ==========================================
-        // 4. AGENT COMMISSION CALCULATOR ENGINE
-        // ==========================================
-        const ModuleAgentCommission = {
-            matrixWeights: { equity: 0.025, debt: 0.0125, mm: 0.01 },
-            cutShare: 0.10,
-
-            formatCompactPKR(val) {
-                if (val >= 10000000) return (val / 10000000).toFixed(2) + ' Cr';
-                if (val >= 100000) return (val / 100000).toFixed(1) + ' Lac';
-                return 'Rs ' + Math.round(val).toLocaleString();
-            },
-
-            handleInputFormatting(input) {
-                let text = input.value.replace(/[^0-9]/g, '');
-                if (text !== '') {
-                    input.value = new Intl.NumberFormat('en-US').format(parseInt(text, 10));
-                }
-                this.calculateAndRender();
-            },
-
-            calculateAndRender() {
-                const parseVal = (id) => Number(document.getElementById(id).value.replace(/,/g, '')) || 0;
-
-                const eqAum = parseVal('agt-equity-aum');
-                const eqCont = parseVal('agt-equity-contrib');
-                const dtAum = parseVal('agt-debt-aum');
-                const dtCont = parseVal('agt-debt-contrib');
-                const mmAum = parseVal('agt-mm-aum');
-                const mmCont = parseVal('agt-mm-contrib');
-
-                const years = Math.max(1, Number(document.getElementById('agt-projection-years').value) || 1);
-                const yieldsRate = (window.Number(document.getElementById('agt-projection-rate').value) || 0) / 100;
-
-                const aggregatedInitialAum = eqAum + dtAum + mmAum;
-                const aggregatedContribution = eqCont + dtCont + mmCont;
-
-                document.getElementById('agt-lbl-initial-aum').textContent = "Rs. " + aggregatedInitialAum.toLocaleString('en-US');
-                document.getElementById('agt-lbl-total-contrib').textContent = "Rs. " + aggregatedContribution.toLocaleString('en-US');
-                document.getElementById('agt-badge-years-summary').textContent = `Cumulative (${years} Years)`;
-
-                let arrList = [];
-                let trackingEqAum = eqAum, trackingDtAum = dtAum, trackingMmAum = mmAum;
-                let cEqFee = 0, cDtFee = 0, cMmFee = 0;
-                let cCommission = 0, cMgmtSum = 0, aggregatedClosingVolume = 0;
-
-                for (let y = 1; y <= years; y++) {
-                    let openVol = trackingEqAum + trackingDtAum + trackingMmAum;
-                    let eqG = trackingEqAum * yieldsRate, dtG = trackingDtAum * yieldsRate, mmG = trackingMmAum * yieldsRate;
-                    
-                    let closingEq = trackingEqAum + eqG + eqCont;
-                    let closingDt = trackingDtAum + dtG + dtCont;
-                    let closingMm = trackingMmAum + mmG + mmCont;
-
-                    let eF = closingEq * this.matrixWeights.equity;
-                    let dF = closingDt * this.matrixWeights.debt;
-                    let mF = closingMm * this.matrixWeights.mm;
-                    
-                    let sliceFee = eF + dF + mF;
-                    let localizedComm = sliceFee * this.cutShare;
-
-                    cEqFee += eF; cDtFee += dF; cMmFee += mF;
-                    cCommission += localizedComm; cMgmtSum += sliceFee;
-                    
-                    let totalClosing = closingEq + closingDt + closingMm;
-                    aggregatedClosingVolume += totalClosing;
-
-                    arrList.push({
-                        year: y,
-                        open: openVol,
-                        growth: (eqG + dtG + mmG),
-                        contribution: aggregatedContribution,
-                        close: totalClosing,
-                        comm: localizedComm,
-                        cumulative: cCommission
-                    });
-
-                    trackingEqAum = closingEq;
-                    trackingDtAum = closingDt;
-                    trackingMmAum = closingMm;
-                }
-
-                document.getElementById('agt-val-cumulative-commission').textContent = "Rs. " + Math.round(cCommission).toLocaleString('en-US');
-                document.getElementById('agt-val-avg-annual-commission').textContent = "Rs. " + Math.round(cCommission / years).toLocaleString('en-US');
-                document.getElementById('agt-val-total-mgmt-fee').textContent = "Rs. " + Math.round(cMgmtSum).toLocaleString('en-US');
-                
-                document.getElementById('agt-fee-equity-cumulative').textContent = "Rs. " + Math.round(cEqFee).toLocaleString('en-US');
-                document.getElementById('agt-fee-equity-annual-avg').textContent = "Rs. " + Math.round(cEqFee / years).toLocaleString('en-US') + " / yr avg";
-                document.getElementById('agt-fee-debt-cumulative').textContent = "Rs. " + Math.round(cDtFee).toLocaleString('en-US');
-                document.getElementById('agt-fee-debt-annual-avg').textContent = "Rs. " + Math.round(cDtFee / years).toLocaleString('en-US') + " / yr avg";
-                document.getElementById('agt-fee-mm-cumulative').textContent = "Rs. " + Math.round(cMmFee).toLocaleString('en-US');
-                document.getElementById('agt-fee-mm-annual-avg').textContent = "Rs. " + Math.round(cMmFee / years).toLocaleString('en-US') + " / yr avg";
-                
-                document.getElementById('agt-fee-total-mgmt').textContent = "Rs. " + Math.round(cMgmtSum).toLocaleString('en-US');
-                document.getElementById('agt-fee-total-commission').textContent = "Rs. " + Math.round(cCommission).toLocaleString('en-US');
-                document.getElementById('agt-val-weighted-average').textContent = (aggregatedClosingVolume > 0 ? (cMgmtSum / aggregatedClosingVolume) * 100 : 0).toFixed(3) + "%";
-
-                let appendTableRowsHtml = "";
-                arrList.forEach(r => {
-                    appendTableRowsHtml += `<tr class="hover:bg-slate-50/80 transition-colors">
-                        <td class="p-4 font-bold text-slate-800">Year ${r.year}</td>
-                        <td class="p-4 text-right text-slate-600 font-medium">Rs. ${Math.round(r.open).toLocaleString('en-US')}</td>
-                        <td class="p-4 text-right text-emerald-600 font-bold">+Rs. ${Math.round(r.growth).toLocaleString('en-US')}</td>
-                        <td class="p-4 text-right text-slate-600 font-medium">Rs. ${Math.round(r.contribution).toLocaleString('en-US')}</td>
-                        <td class="p-4 text-right text-slate-900 font-bold">Rs. ${Math.round(r.close).toLocaleString('en-US')}</td>
-                        <td class="p-4 text-right font-bold text-slate-800">Rs. ${Math.round(r.comm).toLocaleString('en-US')}</td>
-                        <td class="p-4 text-right font-extrabold text-indigo-600 bg-indigo-50/30">Rs. ${Math.round(r.cumulative).toLocaleString('en-US')}</td>
-                    </tr>`;
-                });
-                document.getElementById('agt-projection-table-body').innerHTML = appendTableRowsHtml;
-                this.generateVectorGrowthCurve(arrList, years);
-            },
-
-            generateVectorGrowthCurve(data, years) {
-                const act = document.getElementById('agt-chart-container-active');
-                const inact = document.getElementById('agt-chart-container-inactive');
-                if (years <= 1) { act.classList.add('hidden'); inact.classList.remove('hidden'); return; }
-                act.classList.remove('hidden'); inact.classList.add('hidden');
-
-                const svg = document.getElementById('agt-svg-chart');
-                const width = Math.max(svg.clientWidth, 600), height = Math.max(svg.clientHeight, 384);
-                const lPad = 85, rPad = 30, tPad = 20, bPad = 35;
-
-                const graphW = width - lPad - rPad, graphH = height - tPad - bPad;
-                const maxVal = Math.max(...data.map(d => d.cumulative)) * 1.15;
-
-                const getX = (i) => lPad + (i / (data.length - 1)) * graphW;
-                const getY = (v) => height - bPad - (v / maxVal) * graphH;
-
-                let pointsStr = data.map((d, i) => `${getX(i)},${getY(d.cumulative)}`).join(' ');
-                let blueprintHtml = `<defs><linearGradient id="cumGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366f1" stop-opacity="0.25"/><stop offset="100%" stop-color="#6366f1" stop-opacity="0"/></linearGradient></defs>`;
-
-                for(let idx=0; idx<5; idx++) {
-                    let ratio = idx / 4;
-                    let hY = (height - bPad) - ratio * graphH;
-                    blueprintHtml += `<line x1="${lPad}" y1="${hY}" x2="${width-rPad}" y2="${hY}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>`;
-                    blueprintHtml += `<text x="${lPad-10}" y="${hY+4}" text-anchor="end" class="text-[9px] fill-slate-500 font-mono font-bold">${this.formatCompactPKR(maxVal * ratio)}</text>`;
-                }
-
-                data.forEach((row, idx) => {
-                    const x = getX(idx);
-                    const labelInterval = Math.ceil(years / 10);
-                    if (idx % labelInterval === 0 || idx === data.length - 1) {
-                        blueprintHtml += `<line x1="${x}" y1="${tPad}" x2="${x}" y2="${height-bPad}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>`;
-                        blueprintHtml += `<text x="${x}" y="${height-bPad+18}" text-anchor="middle" class="text-[10px] fill-slate-500 font-bold font-mono">Yr ${row.year}</text>`;
-                    }
-                });
-
-                blueprintHtml += `
-                    <line x1="${lPad}" y1="${tPad}" x2="${lPad}" y2="${height-bPad}" stroke="#94a3b8" stroke-width="1.5" />
-                    <line x1="${lPad}" y1="${height-bPad}" x2="${width-rPad}" y2="${height-bPad}" stroke="#94a3b8" stroke-width="1.5" />
-                `;
-
-                if (data.length > 1) {
-                    blueprintHtml += `<path d="M ${lPad},${height-bPad} L ${pointsStr} L ${width-rPad},${height-bPad} Z" fill="url(#cumGrad)"/>`;
-                    blueprintHtml += `<polyline fill="none" stroke="#6366f1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" points="${pointsStr}"/>`;
-                }
-                svg.innerHTML = blueprintHtml;
-            }
-        };
-
         // Initialize Native Form Watchers & Routing checks
         window.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
@@ -1437,7 +996,7 @@
             // Run parameter-based router checks on initialization
             const urlParams = new URLSearchParams(window.location.search);
             const viewQuery = urlParams.get('view');
-            const validViews = ['benefit', 'rebate', 'annuity', 'commission'];
+            const validViews = ['benefit', 'rebate', 'annuity'];
             
             if (viewQuery && validViews.includes(viewQuery)) {
                 routerSwitchView(viewQuery);
@@ -1474,36 +1033,6 @@
                 });
             }
 
-            ['agt-equity-aum', 'agt-equity-contrib', 'agt-debt-aum', 'agt-debt-contrib', 'agt-mm-aum', 'agt-mm-contrib'].forEach(id => {
-                const element = document.getElementById(id);
-                if (element) element.addEventListener('input', () => ModuleAgentCommission.handleInputFormatting(element));
-            });
-
-            // Instant input listeners for projection years & expected return
-            ['agt-projection-years', 'agt-projection-rate'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.addEventListener('input', () => ModuleAgentCommission.calculateAndRender());
-            });
-
-            document.getElementById('agt-toggle-table-btn').addEventListener('click', () => {
-                document.getElementById('agt-toggle-table-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all bg-white text-slate-900 shadow-md";
-                document.getElementById('agt-toggle-chart-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all text-slate-500 hover:text-slate-800";
-                document.getElementById('agt-table-container-view').classList.remove('hidden');
-                document.getElementById('agt-chart-container-view').classList.add('hidden');
-            });
-            document.getElementById('agt-toggle-chart-btn').addEventListener('click', () => {
-                document.getElementById('agt-toggle-chart-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all bg-white text-slate-900 shadow-md";
-                document.getElementById('agt-toggle-table-btn').className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold transition-all text-slate-500 hover:text-slate-800";
-                document.getElementById('agt-table-container-view').classList.add('hidden');
-                document.getElementById('agt-chart-container-view').classList.remove('hidden');
-                ModuleAgentCommission.calculateAndRender();
-            });
-
-            window.addEventListener('resize', () => {
-                if (!document.getElementById('agent-commission-scope-view').classList.contains('hidden') && !document.getElementById('agt-chart-container-view').classList.contains('hidden')) {
-                    ModuleAgentCommission.calculateAndRender();
-                }
-            });
         });
     </script>
 </body>
