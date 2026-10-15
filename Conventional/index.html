@@ -266,6 +266,12 @@
   
 /* Hero stat figures: darker gold to match the benefit-icon gold */
 .sl-bg-white-10>p.sl-text-slic-gold{color:#f59e0b;background:linear-gradient(180deg,#ffd54f 0%,#f57c00 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* Hero benefit rows are links; keep them underline-free */
+.sl-ben-row{text-decoration:none;}
+/* Anchored coverage cards: clear the sticky header when jumped to */
+#basic-death-benefit,#accidental-death-benefit,#ptd-accident-benefit,#ptd-sickness-benefit,#hospitalization-benefit{scroll-margin-top:100px;}
+html{scroll-behavior:smooth;}
 </style>
 </head>
 <body class="sl-bg-gray-50 sl-text-gray-800">
@@ -358,26 +364,26 @@ Discuss
 <p class="sl-ben-sub">Included at no extra cost for every enrolled member.</p>
 <hr class="sl-ben-divider">
 <ul class="sl-ben-list">
-<li class="sl-ben-row">
+<li><a class="sl-ben-row" href="#basic-death-benefit">
 <span class="sl-ben-icon"><i class="bi bi-hospital"></i></span>
 <span class="sl-ben-title">Basic Death Benefit</span>
-</li>
-<li class="sl-ben-row">
+</a></li>
+<li><a class="sl-ben-row" href="#accidental-death-benefit">
 <span class="sl-ben-icon"><i class="bi bi-car-front-fill"></i></span>
 <span class="sl-ben-title">Accidental Death Benefit</span>
-</li>
-<li class="sl-ben-row">
+</a></li>
+<li><a class="sl-ben-row" href="#ptd-accident-benefit">
 <span class="sl-ben-icon"><i class="bi bi-person-wheelchair"></i></span>
 <span class="sl-ben-title">Permanent Total Disability (Accident)</span>
-</li>
-<li class="sl-ben-row">
+</a></li>
+<li><a class="sl-ben-row" href="#ptd-sickness-benefit">
 <span class="sl-ben-icon"><i class="bi bi-lungs-fill"></i></span>
 <span class="sl-ben-title">Permanent Total Disability (Sickness)</span>
-</li>
-<li class="sl-ben-row">
+</a></li>
+<li><a class="sl-ben-row" href="#hospitalization-benefit">
 <span class="sl-ben-icon"><i class="bi bi-hospital-fill"></i></span>
 <span class="sl-ben-title">Hospitalization Benefit</span>
-</li>
+</a></li>
 </ul>
 </div>
 </div>
@@ -539,7 +545,7 @@ Discuss
         </p>
 </div>
 <div class="sl-max-w-4xl mx-auto sl-space-y-5">
-<div class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
+<div id="basic-death-benefit" class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
 <div class="border sl-w-16 sl-h-16 sl-sm-w-20 sl-sm-h-20 flex-shrink-0 sl-bg-slic-dark text-white rounded-pill d-flex align-items-center justify-content-center sl-text-2xl sl-sm-text-3xl border-4 sl-border-blue-50 shadow-sm">
 <i class="bi bi-hospital"></i>
 </div>
@@ -550,7 +556,7 @@ Discuss
             </p>
 </div>
 </div>
-<div class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
+<div id="accidental-death-benefit" class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
 <div class="border sl-w-16 sl-h-16 sl-sm-w-20 sl-sm-h-20 flex-shrink-0 sl-bg-slic-dark text-white rounded-pill d-flex align-items-center justify-content-center sl-text-2xl sl-sm-text-3xl border-4 sl-border-blue-50 shadow-sm">
 <i class="bi bi-car-front-fill"></i>
 </div>
@@ -561,7 +567,7 @@ Discuss
             </p>
 </div>
 </div>
-<div class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
+<div id="ptd-accident-benefit" class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
 <div class="border sl-w-16 sl-h-16 sl-sm-w-20 sl-sm-h-20 flex-shrink-0 sl-bg-slic-dark text-white rounded-pill d-flex align-items-center justify-content-center sl-text-2xl sl-sm-text-3xl border-4 sl-border-blue-50 shadow-sm">
 <i class="bi bi-person-wheelchair"></i>
 </div>
@@ -572,7 +578,7 @@ Discuss
             </p>
 </div>
 </div>
-<div class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
+<div id="ptd-sickness-benefit" class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
 <div class="border sl-w-16 sl-h-16 sl-sm-w-20 sl-sm-h-20 flex-shrink-0 sl-bg-slic-dark text-white rounded-pill d-flex align-items-center justify-content-center sl-text-2xl sl-sm-text-3xl border-4 sl-border-blue-50 shadow-sm">
 <i class="bi bi-lungs-fill"></i>
 </div>
@@ -583,7 +589,7 @@ Discuss
             </p>
 </div>
 </div>
-<div class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
+<div id="hospitalization-benefit" class="border d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 gap-sm-4 bg-white border-2 sl-border-slic-medium-20 rounded-4 p-3 sl-hover-border-slic-primary sl-hover-shadow-md sl-transition">
 <div class="border sl-w-16 sl-h-16 sl-sm-w-20 sl-sm-h-20 flex-shrink-0 sl-bg-slic-dark text-white rounded-pill d-flex align-items-center justify-content-center sl-text-2xl sl-sm-text-3xl border-4 sl-border-blue-50 shadow-sm">
 <i class="bi bi-hospital-fill"></i>
 </div>
