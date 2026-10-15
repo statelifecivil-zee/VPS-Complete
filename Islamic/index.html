@@ -292,6 +292,9 @@
 /* Anchored coverage cards: clear the sticky header when jumped to */
 #basic-death-benefit,#accidental-death-benefit,#ptd-accident-benefit,#ptd-sickness-benefit,#hospitalization-benefit{scroll-margin-top:100px;}
 html{scroll-behavior:smooth;}
+
+/* Highlight the coverage detail card jumped to from the hero card */
+#basic-death-benefit:target,#accidental-death-benefit:target,#ptd-accident-benefit:target,#ptd-sickness-benefit:target,#hospitalization-benefit:target{border-color:#FFB800;background-color:#FFF9E0;box-shadow:0 0 0 3px rgba(255,184,0,.30),0 12px 30px rgba(245,124,0,.18);}
 </style>
 </head>
 <body class="sl-bg-gray-50 sl-text-gray-800">
