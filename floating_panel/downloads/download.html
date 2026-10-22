@@ -319,6 +319,18 @@
 </div>
 </div>
 </main>
+<!-- OTHER FORMS -->
+<section class="py-5" style="background: #F0F4FA;">
+<div class="container">
+<div class="section-card">
+<div class="text-center mb-4">
+<h2 class="fw-bold mb-0" style="color: #0B2240;">Other Forms</h2>
+<div class="mx-auto mt-2 rounded-pill" style="width: 3rem; height: 4px; background: #0052CC;"></div>
+</div>
+<div class="fmr-grid" id="otherFormsGrid"></div>
+</div>
+</div>
+</section>
 <!-- INVESTOR DOCUMENTS: CONVENTIONAL VPS -->
 <section class="py-5" style="background: #F0F4FA;">
 <div class="container">
@@ -428,6 +440,20 @@ const FORMS = [
 ];
 
 /* =====================================================================
+   OTHER FORMS — same card style as the forms above, own folder
+   ===================================================================== */
+const OTHER_FORMS_FOLDER = "/floating_panel/downloads/other_forms/";
+
+const OTHER_FORMS = [
+  { title: "W-9 Form", file: "W-9_Form.pdf",
+    desc: "Request for Taxpayer Identification Number and Certification \u2014 for US persons." },
+  { title: "W-8BEN Form", file: "W-8BEN_Form.pdf",
+    desc: "Certificate of Foreign Status of Beneficial Owner \u2014 for non-US individuals." },
+  { title: "W-8BEN-E Form", file: "W-8BEN-E_Form.pdf",
+    desc: "Certificate of Status of Beneficial Owner \u2014 for non-US entities." }
+];
+
+/* =====================================================================
    INVESTOR DOCUMENTS — same card style as the forms above
    href : full web address of the PDF (already URL-encoded where needed)
    ===================================================================== */
@@ -464,6 +490,15 @@ const DOCS_SLIRSF = [
       <p class="fmr-desc">${esc(f.desc)}</p>
       <hr/>
       <a class="fmr-dl" href="${FORMS_FOLDER}${encodeURIComponent(f.file)}" target="_blank" rel="noopener" aria-label="Download ${esc(f.title)} (PDF)">Download</a>
+    </div>`).join("");
+
+  document.getElementById("otherFormsGrid").innerHTML = OTHER_FORMS.map(f => `
+    <div class="fmr-item">
+      <span class="fmr-badge"><i class="bi bi-file-earmark-text" aria-hidden="true"></i>PDF</span>
+      <h2>${esc(f.title)}</h2>
+      <p class="fmr-desc">${esc(f.desc)}</p>
+      <hr/>
+      <a class="fmr-dl" href="${OTHER_FORMS_FOLDER}${encodeURIComponent(f.file)}" target="_blank" rel="noopener" aria-label="Download ${esc(f.title)} (PDF)">Download</a>
     </div>`).join("");
 
   const docCard = d => `
